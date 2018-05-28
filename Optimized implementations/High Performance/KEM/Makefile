@@ -51,15 +51,14 @@ endif
 endif
 endif
 
-
-#HIGH_COMPATIBILITY
+ #HIGH_PERFORMANCE
 
   CC = gcc
 
   CFLAGS = -DCATEGORY=$(SL) -DN0=$(N0) -DCPU_WORD_BITS=64 \
            -std=c11 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized \
-	 	   -O3 -mmmx -msse -msse2 -msse3 -msse4.1 -msse4.2 -mavx -mpopcnt -maes \
-	       -mpclmul
+     	   -O3 -mmmx -msse -msse2 -msse3 -msse4.1 -msse4.2 -mavx -mpopcnt -maes \
+	       -mpclmul -mlzcnt -mbmi -mbmi2 -mavx2
 
   LDFLAGS = -lm
   INCLUDES = -I./include
@@ -74,7 +73,6 @@ endif
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -c $(CFLAGS) $(INCLUDES)  $< -o $@
-
 
 
 .PHONY : all clean
