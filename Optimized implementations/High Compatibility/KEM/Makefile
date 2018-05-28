@@ -51,12 +51,12 @@ endif
 endif
 endif
 
-  NAME = ledakem_try
+  #NAME = ledakem_try
 
   CC = gcc
 
   CFLAGS = -DCATEGORY=$(SL) -DN0=$(N0) -DCPU_WORD_BITS=64 \
-           -std=c99 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized \
+           -std=c11 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized \
 	   -march=native -O3
   LDFLAGS = -lm
   INCLUDES = -I./include
@@ -72,8 +72,8 @@ endif
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -c $(CFLAGS) $(INCLUDES)  $< -o $@
 
-$(NAME): $(COBJS)
-	$(CC) $^ -o $@ $(CFLAGS) $(LDFLAGS)
+#$(NAME): $(COBJS)
+	#$(CC) $^ -o $@ $(CFLAGS) $(LDFLAGS)
 
 .PHONY : all clean
 
