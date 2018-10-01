@@ -1,0 +1,732 @@
+
+;; Function bf_decoding (bf_decoding, funcdef_no=45, decl_uid=2052, cgraph_uid=45, symbol_order=46)
+
+bf_decoding (DIGIT * out, const uint32_t[17] * HtrPosOnes, const uint32_t[7] * QtrPosOnes, DIGIT * privateSyndrome)
+{
+  int straightIdx;
+  int digitIdx;
+  unsigned int inDigitIdx;
+  DIGIT mask;
+  int straightIdx;
+  int digitIdx;
+  unsigned int inDigitIdx;
+  DIGIT mask;
+  int ret;
+  int i;
+  unsigned int straightIdx;
+  unsigned int digitIdx;
+  int i;
+  int HtrOneIdx;
+  unsigned int syndromePosToFlip;
+  int blockIndex;
+  int v;
+  int blockIdx;
+  int correlation;
+  int endQblockIdx;
+  int currQoneIdx;
+  int j;
+  int i;
+  int HtrOneIdx;
+  int valueIdx;
+  int i;
+  int corrt_syndrome_based;
+  int thresh_table_idx;
+  int max_idx;
+  int min_idx;
+  unsigned int synd_corrt_vec[9][2];
+  int imax;
+  int check;
+  DIGIT currSyndrome[435];
+  uint32_t currQ_pos[7];
+  int upc[55558];
+  long unsigned int _1;
+  long unsigned int _2;
+  const uint32_t[17] * _3;
+  unsigned int _4;
+  unsigned int _6;
+  unsigned int _7;
+  int _9;
+  int _10;
+  int _11;
+  int _14;
+  unsigned int _15;
+  unsigned int j.3_30;
+  int _31;
+  long unsigned int _32;
+  int _33;
+  unsigned int _34;
+  unsigned int _35;
+  unsigned int _36;
+  unsigned int _37;
+  long unsigned int _38;
+  long unsigned int _39;
+  const uint32_t[17] * _40;
+  unsigned int _41;
+  unsigned int _42;
+  long unsigned int _44;
+  long unsigned int _45;
+  DIGIT * _46;
+  long unsigned int _47;
+  _Bool _48;
+  _Bool _49;
+  _Bool _50;
+  unsigned int _52;
+  unsigned int _53;
+  unsigned int _63;
+  unsigned int _64;
+  unsigned int ivtmp_82;
+  unsigned int ivtmp_138;
+  unsigned int ivtmp_139;
+  unsigned int ivtmp_140;
+  unsigned int ivtmp_141;
+  unsigned int ivtmp_142;
+  unsigned int ivtmp_143;
+  long unsigned int _146;
+  long unsigned int _147;
+  const DIGIT * _148;
+  long unsigned int _149;
+  unsigned int _150;
+  unsigned int _151;
+  long unsigned int _152;
+  long unsigned int _153;
+  long unsigned int _155;
+  long unsigned int _156;
+  DIGIT * _157;
+  long unsigned int _158;
+  int _159;
+  unsigned int _163;
+  unsigned int _168;
+  long unsigned int _170;
+  int _171;
+  DIGIT * _172;
+  long unsigned int _173;
+  long unsigned int _174;
+  unsigned int _175;
+  unsigned int ivtmp_178;
+  unsigned int ivtmp_179;
+  unsigned int _180;
+  long unsigned int _182;
+  long unsigned int _183;
+  DIGIT * _184;
+  long unsigned int _185;
+  long unsigned int _186;
+  unsigned int ivtmp_192;
+  unsigned int ivtmp_216;
+  unsigned int ivtmp_219;
+  unsigned char _316;
+  int _317;
+  int _318;
+  long unsigned int _319;
+  long unsigned int _320;
+  const uint32_t[7] * _321;
+  unsigned int _322;
+  unsigned int j.2_323;
+  unsigned int _324;
+  unsigned int _325;
+  int _328;
+  int _330;
+  unsigned int _336;
+  unsigned int _338;
+  unsigned int _339;
+  int _344;
+  unsigned int _350;
+  unsigned int _352;
+  unsigned int _353;
+  int _358;
+  unsigned int _364;
+  unsigned int _366;
+  unsigned int _367;
+  int _372;
+  unsigned int _378;
+  unsigned int _380;
+  unsigned int _381;
+  int _386;
+  unsigned int _392;
+  unsigned int _394;
+  unsigned int _395;
+  int _400;
+  unsigned int _406;
+  unsigned int _408;
+  unsigned int _409;
+  int _414;
+  long unsigned int _421;
+  long unsigned int _422;
+  unsigned char _426;
+  int _427;
+  unsigned int _432;
+  unsigned int j.2_433;
+  unsigned int _434;
+  unsigned int _435;
+  unsigned int _438;
+  int _440;
+  unsigned int _446;
+  unsigned int _448;
+  unsigned int _449;
+  unsigned int _452;
+  int _454;
+  unsigned int _460;
+  unsigned int _462;
+  unsigned int _463;
+  unsigned int _466;
+  int _468;
+  unsigned int _474;
+  unsigned int _476;
+  unsigned int _477;
+  unsigned int _480;
+  int _482;
+  unsigned int _488;
+  unsigned int _490;
+  unsigned int _491;
+  unsigned int _494;
+  int _496;
+  unsigned int _502;
+  unsigned int _503;
+  unsigned int _504;
+  unsigned int _505;
+  unsigned int _508;
+  int _510;
+  unsigned int _516;
+  unsigned int _518;
+  unsigned int _519;
+  unsigned int _522;
+  int _524;
+  unsigned int pretmp_700;
+  unsigned int prephitmp_701;
+  unsigned int _702;
+  unsigned int ivtmp_722;
+  int prephitmp_772;
+  int prephitmp_776;
+  int prephitmp_780;
+  int prephitmp_784;
+  int prephitmp_788;
+  int prephitmp_792;
+  _Bool _804;
+  int _806;
+  int prephitmp_807;
+  unsigned int ivtmp_817;
+  unsigned int ivtmp_818;
+  unsigned int ivtmp_819;
+  unsigned int ivtmp_820;
+  unsigned int ivtmp_821;
+
+  <bb 2> [0.00%]:
+  synd_corrt_vec[0][0] = 0;
+  synd_corrt_vec[0][1] = 62;
+  synd_corrt_vec[1][0] = 4588;
+  synd_corrt_vec[1][1] = 63;
+  synd_corrt_vec[2][0] = 7609;
+  synd_corrt_vec[2][1] = 64;
+  synd_corrt_vec[3][0] = 9152;
+  synd_corrt_vec[3][1] = 65;
+  synd_corrt_vec[4][0] = 10129;
+  synd_corrt_vec[4][1] = 66;
+  synd_corrt_vec[5][0] = 10800;
+  synd_corrt_vec[5][1] = 67;
+  synd_corrt_vec[6][0] = 11261;
+  synd_corrt_vec[6][1] = 68;
+  synd_corrt_vec[7][0] = 11614;
+  synd_corrt_vec[7][1] = 69;
+  synd_corrt_vec[8][0] = 11885;
+  synd_corrt_vec[8][1] = 70;
+
+  <bb 3> [0.01%]:
+  # imax_54 = PHI <15(2), imax_108(60)>
+  __builtin_memcpy (&currSyndrome, privateSyndrome_105(D), 3480);
+
+  <bb 6> [0.01%]:
+  __builtin_memset (&upc, 0, 222232);
+  goto <bb 16>; [100.00%]
+
+  <bb 7> [37.34%]:
+
+  <bb 8> [39.68%]:
+  # HtrOneIdx_202 = PHI <HtrOneIdx_136(7), 0(13)>
+  # ivtmp_82 = PHI <ivtmp_821(7), 17(13)>
+  _4 = *_3[HtrOneIdx_202];
+  _6 = _4 + _503;
+  _7 = _6 % 27779;
+  straightIdx_144 = 27839 - _7;
+  digitIdx_145 = straightIdx_144 >> 6;
+  _146 = (long unsigned int) digitIdx_145;
+  _147 = _146 * 8;
+  _148 = &currSyndrome + _147;
+  _149 = *_148;
+  _150 = ~straightIdx_144;
+  _151 = _150 & 63;
+  _152 = _149 >> _151;
+  _153 = _152 & 1;
+  if (_153 != 0)
+    goto <bb 9>; [50.00%]
+  else
+    goto <bb 10>; [50.00%]
+
+  <bb 9> [19.84%]:
+  _10 = upc[_9];
+  _11 = _10 + 1;
+  upc[_9] = _11;
+
+  <bb 10> [39.68%]:
+  HtrOneIdx_136 = HtrOneIdx_202 + 1;
+  ivtmp_821 = ivtmp_82 - 1;
+  if (ivtmp_821 != 0)
+    goto <bb 7>; [94.11%]
+  else
+    goto <bb 11>; [5.89%]
+
+  <bb 11> [2.34%]:
+  valueIdx_134 = valueIdx_201 + 1;
+  ivtmp_819 = ivtmp_820 - 1;
+  if (ivtmp_819 != 0)
+    goto <bb 12>; [98.99%]
+  else
+    goto <bb 14>; [1.01%]
+
+  <bb 12> [2.32%]:
+
+  <bb 13> [2.34%]:
+  # valueIdx_201 = PHI <valueIdx_134(12), 0(16)>
+  # ivtmp_820 = PHI <ivtmp_819(12), 27779(16)>
+  _503 = (unsigned int) valueIdx_201;
+  _36 = _52 + _503;
+  _9 = (int) _36;
+  goto <bb 8>; [100.00%]
+
+  <bb 14> [0.03%]:
+  i_133 = i_200 + 1;
+  ivtmp_817 = ivtmp_818 - 1;
+  if (ivtmp_817 != 0)
+    goto <bb 15>; [55.56%]
+  else
+    goto <bb 17>; [44.44%]
+
+  <bb 15> [0.02%]:
+
+  <bb 16> [0.03%]:
+  # i_200 = PHI <i_133(15), 0(6)>
+  # ivtmp_818 = PHI <ivtmp_817(15), 2(6)>
+  _1 = (long unsigned int) i_200;
+  _2 = _1 * 68;
+  _3 = HtrPosOnes_120(D) + _2;
+  _53 = (unsigned int) i_200;
+  _52 = _53 * 27779;
+  goto <bb 13>; [100.00%]
+
+  <bb 17> [0.01%]:
+
+  <bb 18> [1.17%]:
+  # i_217 = PHI <i_162(19), 434(17)>
+  # ret_218 = PHI <ret_161(19), 0(17)>
+  # ivtmp_178 = PHI <ivtmp_179(19), 435(17)>
+  _155 = (long unsigned int) i_217;
+  _156 = _155 * 8;
+  _157 = &currSyndrome + _156;
+  _158 = *_157;
+  _159 = __builtin_popcountll (_158);
+  ret_161 = _159 + ret_218;
+  i_162 = i_217 + -1;
+  ivtmp_179 = ivtmp_178 - 1;
+  if (ivtmp_179 != 0)
+    goto <bb 19>; [98.99%]
+  else
+    goto <bb 20>; [1.01%]
+
+  <bb 19> [1.16%]:
+  goto <bb 18>; [100.00%]
+
+  <bb 20> [0.01%]:
+  # ret_167 = PHI <ret_161(18)>
+  _702 = (unsigned int) ret_167;
+
+  <bb 21> [0.07%]:
+  # min_idx_203 = PHI <min_idx_58(25), 0(20)>
+  # max_idx_204 = PHI <max_idx_60(25), 8(20)>
+  # thresh_table_idx_205 = PHI <thresh_table_idx_132(25), 4(20)>
+  # prephitmp_701 = PHI <pretmp_700(25), 10129(20)>
+  if (prephitmp_701 <= _702)
+    goto <bb 22>; [50.00%]
+  else
+    goto <bb 23>; [50.00%]
+
+  <bb 22> [0.03%]:
+  min_idx_131 = thresh_table_idx_205 + 1;
+  goto <bb 24>; [100.00%]
+
+  <bb 23> [0.03%]:
+  max_idx_130 = thresh_table_idx_205 + -1;
+
+  <bb 24> [0.07%]:
+  # min_idx_58 = PHI <min_idx_131(22), min_idx_203(23)>
+  # max_idx_60 = PHI <max_idx_204(22), max_idx_130(23)>
+  _14 = min_idx_58 + max_idx_60;
+  thresh_table_idx_132 = _14 / 2;
+  if (min_idx_58 < max_idx_60)
+    goto <bb 25>; [82.86%]
+  else
+    goto <bb 26>; [17.14%]
+
+  <bb 25> [0.06%]:
+  pretmp_700 = synd_corrt_vec[thresh_table_idx_132][0];
+  goto <bb 21>; [100.00%]
+
+  <bb 26> [0.01%]:
+  # thresh_table_idx_166 = PHI <thresh_table_idx_132(24)>
+  _15 = synd_corrt_vec[thresh_table_idx_166][1];
+  corrt_syndrome_based_107 = (int) _15;
+  goto <bb 54>; [100.00%]
+
+  <bb 27> [0.79%]:
+  j.3_30 = (unsigned int) j_207;
+  _163 = 27839 - j.3_30;
+  straightIdx_164 = (int) _163;
+  digitIdx_165 = straightIdx_164 >> 6;
+  _33 = ~straightIdx_164;
+  _171 = _33 & 63;
+  _168 = (unsigned int) _171;
+  mask_169 = 1 << _168;
+  _170 = (long unsigned int) digitIdx_165;
+  _422 = _32 + _170;
+  _421 = _422 * 8;
+  _172 = out_117(D) + _421;
+  _173 = *_172;
+  _174 = mask_169 ^ _173;
+  *_172 = _174;
+
+  <bb 28> [5.56%]:
+  # v_310 = PHI <v_119(32), 0(27)>
+  # ivtmp_140 = PHI <ivtmp_141(32), 7(27)>
+  _34 = currQ_pos[v_310];
+  _35 = _34 % 27779;
+  _37 = _34 / 27779;
+  _38 = (long unsigned int) _37;
+  _39 = _38 * 68;
+  _40 = HtrPosOnes_120(D) + _39;
+
+  <bb 29> [94.44%]:
+  # HtrOneIdx_116 = PHI <HtrOneIdx_122(30), 0(28)>
+  # ivtmp_138 = PHI <ivtmp_139(30), 17(28)>
+  _41 = *_40[HtrOneIdx_116];
+  _42 = _35 + _41;
+  syndromePosToFlip_121 = _42 % 27779;
+  _175 = 27839 - syndromePosToFlip_121;
+  straightIdx_176 = (int) _175;
+  digitIdx_177 = straightIdx_176 >> 6;
+  _328 = ~straightIdx_176;
+  _318 = _328 & 63;
+  _180 = (unsigned int) _318;
+  mask_181 = 1 << _180;
+  _182 = (long unsigned int) digitIdx_177;
+  _183 = _182 * 8;
+  _184 = privateSyndrome_105(D) + _183;
+  _185 = *_184;
+  _186 = mask_181 ^ _185;
+  *_184 = _186;
+  HtrOneIdx_122 = HtrOneIdx_116 + 1;
+  ivtmp_139 = ivtmp_138 - 1;
+  if (ivtmp_139 != 0)
+    goto <bb 30>; [94.11%]
+  else
+    goto <bb 31>; [5.89%]
+
+  <bb 30> [88.88%]:
+  goto <bb 29>; [100.00%]
+
+  <bb 31> [5.56%]:
+  v_119 = v_310 + 1;
+  ivtmp_141 = ivtmp_140 - 1;
+  if (ivtmp_141 != 0)
+    goto <bb 32>; [85.72%]
+  else
+    goto <bb 33>; [14.28%]
+
+  <bb 32> [4.77%]:
+  goto <bb 28>; [100.00%]
+
+  <bb 33> [2.34%]:
+  j_123 = j_207 + 1;
+  ivtmp_192 = ivtmp_142 - 1;
+  if (ivtmp_192 != 0)
+    goto <bb 34>; [98.99%]
+  else
+    goto <bb 52>; [1.01%]
+
+  <bb 34> [2.32%]:
+
+  <bb 35> [2.34%]:
+  # j_207 = PHI <j_123(34), 0(54)>
+  # ivtmp_142 = PHI <ivtmp_192(34), 27779(54)>
+  if (_316 != 0)
+    goto <bb 36>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 36> [1.99%]:
+  _322 = *_321[0];
+  j.2_323 = (unsigned int) j_207;
+  _324 = _322 + j.2_323;
+  _325 = _324 % 27779;
+  currQ_pos[0] = _325;
+  _330 = upc[_325];
+  if (_316 > 1)
+    goto <bb 37>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 37> [1.68%]:
+  _336 = *_321[1];
+  _338 = j.2_323 + _336;
+  _339 = _338 % 27779;
+  currQ_pos[1] = _339;
+  _344 = upc[_339];
+  correlation_345 = _330 + _344;
+  if (_316 != 2)
+    goto <bb 38>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 38> [1.44%]:
+  _350 = *_321[2];
+  _352 = j.2_323 + _350;
+  _353 = _352 % 27779;
+  currQ_pos[2] = _353;
+  _358 = upc[_353];
+  correlation_359 = correlation_345 + _358;
+  if (_316 != 3)
+    goto <bb 39>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 39> [1.22%]:
+  _364 = *_321[3];
+  _366 = j.2_323 + _364;
+  _367 = _366 % 27779;
+  currQ_pos[3] = _367;
+  _372 = upc[_367];
+  correlation_373 = correlation_359 + _372;
+  if (_316 != 4)
+    goto <bb 40>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 40> [1.05%]:
+  _378 = *_321[4];
+  _380 = j.2_323 + _378;
+  _381 = _380 % 27779;
+  currQ_pos[4] = _381;
+  _386 = upc[_381];
+  correlation_387 = correlation_373 + _386;
+  if (_316 != 5)
+    goto <bb 41>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 41> [0.89%]:
+  _392 = *_321[5];
+  _394 = j.2_323 + _392;
+  _395 = _394 % 27779;
+  currQ_pos[5] = _395;
+  _400 = upc[_395];
+  correlation_401 = correlation_387 + _400;
+  if (_316 != 6)
+    goto <bb 42>; [85.00%]
+  else
+    goto <bb 43>; [15.00%]
+
+  <bb 42> [0.76%]:
+  _406 = *_321[6];
+  _408 = j.2_323 + _406;
+  _409 = _408 % 27779;
+  currQ_pos[6] = _409;
+  _414 = upc[_409];
+  correlation_415 = correlation_401 + _414;
+
+  <bb 43> [2.34%]:
+  # currQoneIdx_417 = PHI <0(35), 1(36), 2(37), 3(38), 4(39), 5(40), 6(41), 7(42)>
+  # correlation_418 = PHI <0(35), _330(36), correlation_345(37), correlation_359(38), correlation_373(39), correlation_387(40), correlation_401(41), correlation_415(42)>
+  # prephitmp_772 = PHI <1(35), 2(36), 3(37), 4(38), 5(39), 6(40), 7(41), 8(42)>
+  # prephitmp_776 = PHI <2(35), 3(36), 4(37), 5(38), 6(39), 7(40), 8(41), 9(42)>
+  # prephitmp_780 = PHI <3(35), 4(36), 5(37), 6(38), 7(39), 8(40), 9(41), 10(42)>
+  # prephitmp_784 = PHI <4(35), 5(36), 6(37), 7(38), 8(39), 9(40), 10(41), 11(42)>
+  # prephitmp_788 = PHI <5(35), 6(36), 7(37), 8(38), 9(39), 10(40), 11(41), 12(42)>
+  # prephitmp_792 = PHI <6(35), 7(36), 8(37), 9(38), 10(39), 11(40), 12(41), 13(42)>
+  if (currQoneIdx_417 < endQblockIdx_428)
+    goto <bb 44>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 44> [1.99%]:
+  _432 = *_321[currQoneIdx_417];
+  j.2_433 = (unsigned int) j_207;
+  _434 = _432 + j.2_433;
+  _435 = _434 % 27779;
+  _438 = _435 + 27779;
+  currQ_pos[currQoneIdx_417] = _438;
+  _440 = upc[_438];
+  correlation_441 = correlation_418 + _440;
+  if (endQblockIdx_428 > prephitmp_772)
+    goto <bb 45>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 45> [1.68%]:
+  _446 = *_321[prephitmp_772];
+  _448 = j.2_433 + _446;
+  _449 = _448 % 27779;
+  _452 = _449 + 27779;
+  currQ_pos[prephitmp_772] = _452;
+  _454 = upc[_452];
+  correlation_455 = correlation_441 + _454;
+  if (endQblockIdx_428 > prephitmp_776)
+    goto <bb 46>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 46> [1.44%]:
+  _460 = *_321[prephitmp_776];
+  _462 = j.2_433 + _460;
+  _463 = _462 % 27779;
+  _466 = _463 + 27779;
+  currQ_pos[prephitmp_776] = _466;
+  _468 = upc[_466];
+  correlation_469 = correlation_455 + _468;
+  if (endQblockIdx_428 > prephitmp_780)
+    goto <bb 47>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 47> [1.22%]:
+  _474 = *_321[prephitmp_780];
+  _476 = j.2_433 + _474;
+  _477 = _476 % 27779;
+  _480 = _477 + 27779;
+  currQ_pos[prephitmp_780] = _480;
+  _482 = upc[_480];
+  correlation_483 = correlation_469 + _482;
+  if (endQblockIdx_428 > prephitmp_784)
+    goto <bb 48>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 48> [1.05%]:
+  _488 = *_321[prephitmp_784];
+  _490 = j.2_433 + _488;
+  _491 = _490 % 27779;
+  _494 = _491 + 27779;
+  currQ_pos[prephitmp_784] = _494;
+  _496 = upc[_494];
+  correlation_497 = correlation_483 + _496;
+  if (endQblockIdx_428 > prephitmp_788)
+    goto <bb 49>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 49> [0.89%]:
+  _502 = *_321[prephitmp_788];
+  _504 = j.2_433 + _502;
+  _505 = _504 % 27779;
+  _508 = _505 + 27779;
+  currQ_pos[prephitmp_788] = _508;
+  _510 = upc[_508];
+  correlation_511 = correlation_497 + _510;
+  if (endQblockIdx_428 > prephitmp_792)
+    goto <bb 50>; [85.00%]
+  else
+    goto <bb 51>; [15.00%]
+
+  <bb 50> [0.76%]:
+  _516 = *_321[prephitmp_792];
+  _518 = j.2_433 + _516;
+  _519 = _518 % 27779;
+  _522 = _519 + 27779;
+  currQ_pos[prephitmp_792] = _522;
+  _524 = upc[_522];
+  correlation_525 = correlation_511 + _524;
+
+  <bb 51> [2.34%]:
+  # correlation_528 = PHI <correlation_418(43), correlation_441(44), correlation_455(45), correlation_469(46), correlation_483(47), correlation_497(48), correlation_511(49), correlation_525(50)>
+  if (corrt_syndrome_based_107 < correlation_528)
+    goto <bb 27>; [34.00%]
+  else
+    goto <bb 33>; [66.00%]
+
+  <bb 52> [0.03%]:
+  i_115 = i_206 + 1;
+  ivtmp_722 = ivtmp_143 - 1;
+  if (ivtmp_722 != 0)
+    goto <bb 53>; [55.56%]
+  else
+    goto <bb 55>; [44.44%]
+
+  <bb 53> [0.02%]:
+
+  <bb 54> [0.03%]:
+  # i_206 = PHI <i_115(53), 0(26)>
+  # ivtmp_143 = PHI <ivtmp_722(53), 2(26)>
+  _316 = qBlockWeights[i_206][0];
+  _317 = (int) _316;
+  _319 = (long unsigned int) i_206;
+  _320 = _319 * 28;
+  _321 = QtrPosOnes_126(D) + _320;
+  _426 = qBlockWeights[i_206][1];
+  _427 = (int) _426;
+  endQblockIdx_428 = _317 + _427;
+  _63 = (unsigned int) i_206;
+  _64 = _63 * 435;
+  _31 = (int) _64;
+  _32 = (long unsigned int) _31;
+  goto <bb 35>; [100.00%]
+
+  <bb 55> [0.01%]:
+  imax_108 = imax_54 + -1;
+  goto <bb 58>; [100.00%]
+
+  <bb 56> [0.13%]:
+  ivtmp_216 = ivtmp_219 - 1;
+  if (ivtmp_216 != 0)
+    goto <bb 57>; [98.92%]
+  else
+    goto <bb 62>; [1.08%]
+
+  <bb 57> [0.13%]:
+
+  <bb 58> [0.14%]:
+  # check_199 = PHI <check_109(57), 0(55)>
+  # ivtmp_219 = PHI <ivtmp_216(57), 435(55)>
+  check_109 = check_199 + 1;
+  _44 = (long unsigned int) check_199;
+  _45 = _44 * 8;
+  _46 = privateSyndrome_105(D) + _45;
+  _47 = *_46;
+  if (_47 == 0)
+    goto <bb 56>; [92.50%]
+  else
+    goto <bb 59>; [7.50%]
+
+  <bb 59> [0.01%]:
+  # check_189 = PHI <check_109(58)>
+  _48 = imax_108 != 0;
+  _49 = check_189 <= 434;
+  _50 = _48 & _49;
+  if (_50 != 0)
+    goto <bb 60>; [85.00%]
+  else
+    goto <bb 61>; [15.00%]
+
+  <bb 60> [0.01%]:
+  goto <bb 3>; [100.00%]
+
+  <bb 61> [0.00%]:
+  # check_8 = PHI <check_189(59)>
+  _804 = check_8 == 435;
+  _806 = (int) _804;
+
+  <bb 62> [0.00%]:
+  # prephitmp_807 = PHI <_806(61), 1(56)>
+  upc ={v} {CLOBBER};
+  currQ_pos ={v} {CLOBBER};
+  currSyndrome ={v} {CLOBBER};
+  synd_corrt_vec ={v} {CLOBBER};
+  return prephitmp_807;
+
+}
+
+
