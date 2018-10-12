@@ -58,10 +58,12 @@ endif
 
   CFLAGS = -DCATEGORY=$(SL) -DN0=$(N0) -DCPU_WORD_BITS=64 \
            -std=c11 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized \
-	 	   -O3 -g3 -ftree-vectorize -fopt-info-vec -fopt-info-vec-missed -mmmx -msse -msse2 \
-		   -msse3 -msse4.1 -msse4.2 -mavx -mpopcnt -maes \
-	       -mpclmul
-
+	 	   -O3 -g3\
+		   #-fopt-info-loop-optimized
+		   -fopt-info-vec-missed\
+		   #fopt-info-inline-optimized-missed=./inline.txt
+		   -mmmx -msse -msse2 -msse3 -msse4.1 -msse4.2\
+		   -mavx -mpopcnt -maes -mpclmul
   LDFLAGS = -lm
   INCLUDES = -I./include
   SRCDIR = library

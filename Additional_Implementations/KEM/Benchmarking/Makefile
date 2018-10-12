@@ -11,7 +11,7 @@
 
   REFERENCE_IMPL_PATH = ../../../Reference_Implementation/KEM
 
-  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=nocona -funroll-loops -O3
+  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -g3 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=nocona -funroll-loops -O3
   LDFLAGS = -lm
   INCLUDES = -I./include -I$(REFERENCE_IMPL_PATH)/include
   SRCDIR_MAIN_FILE = library
@@ -26,7 +26,7 @@
   BINDIR_128SL_N02  = $(BINDIR)128SL_N02
   BINDIR_128SL_N03  = $(BINDIR)128SL_N03
   BINDIR_128SL_N04  = $(BINDIR)128SL_N04
-  
+
   BINDIR_192SL_N02 = $(BINDIR)192SL_N02
   BINDIR_192SL_N03 = $(BINDIR)192SL_N03
   BINDIR_192SL_N04 = $(BINDIR)192SL_N04

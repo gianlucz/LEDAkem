@@ -35,6 +35,9 @@
 #include "rng.h"
 #include <string.h>  // memcpy(...), memset(...)
 #include <assert.h>
+#include <x86intrin.h>
+#include <wmmintrin.h>
+#include <immintrin.h>
 
 /*----------------------------------------------------------------------------*/
 
@@ -91,10 +94,28 @@ void left_bit_shift(const int length, DIGIT in[])
 {
 
    int j;
-   for (j = 0; j < length-1; j++) {//vett.
-      in[j] <<= 1;                    /* logical shift does not need clearing */
-      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
-   }
+
+   DIGIT b[length];
+   DIGIT a[length];
+
+   for (j = 0; j < length-1; j++) {//bad data dependecy
+
+    a[j] = in[j] << 1;    /* logical shift does not need clearing */
+    }
+
+    for(j = 0; j < length-1; j++){
+
+//    in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+    b[j] = in[j+1] >> (DIGIT_SIZE_b-1);
+
+    }
+
+    for(j = 0; j < length-1; j++){
+
+    in[j] = a[j] | b[j];
+
+    }
+
    in[j] <<= 1;
 } // end left_bit_shift
 
@@ -387,23 +408,15 @@ int gf2x_mod_inverse(DIGIT out[], const DIGIT in[])     /* in^{-1} mod x^P-1 */
       mask = (((DIGIT)0x1) << MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS);
    s[0] |= mask;
 
-   #pragma ivdep
-   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i>=0 ; i--){
-
-
-       if(in[i]!=0)
-       break;
-   };
+   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i>=0 && in[i] == 0; i--);
    if (i < 0) return 0;
 
    if (NUM_DIGITS_GF2X_MODULUS == 1 + NUM_DIGITS_GF2X_ELEMENT)
 
-      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) f[i] = in[i-1]; //vett.
+      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) f[i] = in[i-1];
    else  /* they are equal */
-      #pragma GCC ivdep
-      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 0 ; i--) f[i] = in[i]; //vett.
+      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 0 ; i--) f[i] = in[i];
 
-  #pragma GCC ivdep
    for (i = 1; i <= 2*P; i++) {//vett.
       if ( (f[0] & mask) == 0 ) {
          left_bit_shift(NUM_DIGITS_GF2X_MODULUS, f);
@@ -429,8 +442,6 @@ int gf2x_mod_inverse(DIGIT out[], const DIGIT in[])     /* in^{-1} mod x^P-1 */
       }
    }
 
-   #pragma vector always
-   #pragma simd
    for (i = NUM_DIGITS_GF2X_ELEMENT-1; i >= 0 ; i--) out[i] = u[i]; //vett.
 
    return (delta == 0);
