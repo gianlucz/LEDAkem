@@ -35,9 +35,12 @@
 #include "rng.h"
 #include <string.h>  // memcpy(...), memset(...)
 #include <assert.h>
+
 #include <x86intrin.h>
 #include <wmmintrin.h>
 #include <immintrin.h>
+#include <pmmintrin.h>
+
 
 /*----------------------------------------------------------------------------*/
 
@@ -92,31 +95,27 @@ void gf2x_mod(DIGIT out[],
 static
 void left_bit_shift(const int length, DIGIT in[])
 {
-
    int j;
+   __m128i a,b;
 
-   DIGIT b[length];
-   DIGIT a[length];
+   for(j = 0; j < (length/2)-1; j++){
 
-   for (j = 0; j < length-1; j++) {//bad data dependecy
+     a = _mm_lddqu_si128( (__m128i *)in + j );//load in[j]
+     b = _mm_lddqu_si128( (__m128i *)&in[1] + j ); //load in[j+1]
 
-    a[j] = in[j] << 1;    /* logical shift does not need clearing */
-    }
+     a = _mm_slli_epi64(a, 1);
+     b = _mm_srli_epi64(b, (DIGIT_SIZE_b-1));
 
-    for(j = 0; j < length-1; j++){
+     _mm_storeu_si128(((__m128i *)in + j), _mm_or_si128(a, b));
 
-//    in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
-    b[j] = in[j+1] >> (DIGIT_SIZE_b-1);
+   }
 
-    }
+   for (j=j*2; j < length-1; j++) {
+     in[j] <<= 1;                    /* logical shift does not need clearing */
+     in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   }
 
-    for(j = 0; j < length-1; j++){
-
-    in[j] = a[j] | b[j];
-
-    }
-
-   in[j] <<= 1;
+   in[length-1] <<= 1; //last element shift
 } // end left_bit_shift
 
 /*----------------------------------------------------------------------------*/
