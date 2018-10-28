@@ -98,7 +98,7 @@ void left_bit_shift(const int length, DIGIT in[])
    int j;
    __m128i a,b;
 
-   for(j = 0; j < (length/2)-1; j++){
+   for(j = 0; j < (length-1)/2; j++){
 
      a = _mm_lddqu_si128( (__m128i *)in + j );//load in[j]
      b = _mm_lddqu_si128( (__m128i *)&in[1] + j ); //load in[j+1]
@@ -110,6 +110,7 @@ void left_bit_shift(const int length, DIGIT in[])
 
    }
 
+   // PERCHE' CON UN IF NON VA?
    for (j=j*2; j < length-1; j++) {
      in[j] <<= 1;                    /* logical shift does not need clearing */
      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
@@ -125,11 +126,28 @@ void right_bit_shift(const int length, DIGIT in[])
 {
 
    int j;
-   for (j = length-1; j > 0 ; j--) { //vett.
-      in[j] >>= 1;
-      in[j] |=  (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
+   __m128i a,b;
+
+   for (j = (length-1); j > (length-1)%2 ; j=j-2) {
+
+      a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j]
+      b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-1]
+
+      a = _mm_srli_epi64(a, 1);
+      b = _mm_slli_epi64(b, (DIGIT_SIZE_b-1));
+
+      _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
+
    }
-   in[j] >>=1;
+
+// PERCHE' CON UN IF NON VA?
+   for(;j > 0; j--){
+     in[j] >>= 1;                    //j[1], cause if it's odd, exit
+     in[j] |= (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
+     //"& 0x01" serve per essere sicuri che non shifti inserendo 1, dato i 2 tipi di shift right
+   }
+
+   in[j] >>= 1; //first element shift
 } // end right_bit_shift
 
 /*----------------------------------------------------------------------------*/
