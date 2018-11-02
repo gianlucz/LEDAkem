@@ -36,6 +36,7 @@
 #include <string.h>  // memcpy(...), memset(...)
 #include <assert.h>
 
+#include "gf2x_arith.h"
 #include <x86intrin.h>
 #include <wmmintrin.h>
 #include <immintrin.h>
@@ -110,8 +111,8 @@ void left_bit_shift(const int length, DIGIT in[])
 
    }
 
-   // PERCHE' CON UN IF NON VA?
-   for (j=j*2; j < length-1; j++) {
+   // PERCHE' CON UN IF NON VA? mentre con il for va?
+    for(j = j*2; j < length-1; j++) {
      in[j] <<= 1;                    /* logical shift does not need clearing */
      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
    }
@@ -128,7 +129,8 @@ void right_bit_shift(const int length, DIGIT in[])
    int j;
    __m128i a,b;
 
-   for (j = (length-1); j > (length-1)%2 ; j=j-2) {
+
+   for (j = length-1; j > (length-1)%2 ; j=j-2) {
 
       a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j]
       b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-1]
@@ -140,8 +142,8 @@ void right_bit_shift(const int length, DIGIT in[])
 
    }
 
-// PERCHE' CON UN IF NON VA?
-   for(;j > 0; j--){
+
+   for(; j > (length-1)%2; j--){
      in[j] >>= 1;                    //j[1], cause if it's odd, exit
      in[j] |= (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
      //"& 0x01" serve per essere sicuri che non shifti inserendo 1, dato i 2 tipi di shift right

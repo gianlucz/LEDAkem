@@ -70,13 +70,14 @@ void gf2x_mul_comb(const int nr, DIGIT Res[],
 }
 
 /*----------------------------------------------------------------------------*/
+/* MOVED TO gf2x_arith.h
 
 void gf2x_add(const int nr, DIGIT Res[],
               const int na, const DIGIT A[],
               const int nb, const DIGIT B[])
 {
     __m128i a, b;
-   for (unsigned i = 0; i < nr/2; i++){ 
+   for (unsigned i = 0; i < nr/2; i++){
     a = _mm_lddqu_si128( (__m128i *)A + i );
     b = _mm_lddqu_si128( (__m128i *)B + i );
 
@@ -87,6 +88,7 @@ void gf2x_add(const int nr, DIGIT Res[],
     Res[nr-1] = A[nr-1] ^ B[nr-1];
     }
 } // end gf2x_add
+*/
 
 int gf2x_cmp(const unsigned lenA, const DIGIT A[],
              const unsigned lenB, const DIGIT B[])

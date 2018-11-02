@@ -33,6 +33,10 @@
 #pragma once
 
 #include "gf2x_limbs.h"
+#include <x86intrin.h>
+#include <wmmintrin.h>
+#include <immintrin.h>
+#include <pmmintrin.h>
 
 /*----------------------------------------------------------------------------*/
 /*
@@ -75,9 +79,23 @@
  */
 /*----------------------------------------------------------------------------*/
 
-void gf2x_add(const int nr, DIGIT Res[],
+static inline void gf2x_add(const int nr, DIGIT Res[],
               const int na, const DIGIT A[],
-              const int nb, const DIGIT B[]);
+              const int nb, const DIGIT B[])
+{
+  __m128i a, b;
+
+ for (unsigned i = 0; i < nr/2; i++){
+     a = _mm_lddqu_si128( (__m128i *)A + i );
+     b = _mm_lddqu_si128( (__m128i *)B + i );
+
+     _mm_storeu_si128(((__m128i *)Res + i), _mm_xor_si128(a, b));
+  }
+
+  if(nr%2 != 0){
+      Res[nr-1] = A[nr-1] ^ B[nr-1];
+  }
+ }
 
 
 void gf2x_mul_comb(const int nr, DIGIT Res[],
