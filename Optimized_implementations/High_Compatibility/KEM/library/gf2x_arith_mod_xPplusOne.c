@@ -143,7 +143,7 @@ void right_bit_shift(const int length, DIGIT in[])
    }
 
 
-   for(; j > (length-1)%2; j--){
+   for(; j > 0; j--){
      in[j] >>= 1;                    //j[1], cause if it's odd, exit
      in[j] |= (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
      //"& 0x01" serve per essere sicuri che non shifti inserendo 1, dato i 2 tipi di shift right
