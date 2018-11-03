@@ -102,9 +102,9 @@ void left_bit_shift(const int length, DIGIT in[])
    for(j = 0; j < (length-1)/4; j++){
 
      a = _mm_lddqu_si128( (__m128i *)in + 2*j );//load in[j] and in[j+1]
-     b = _mm_lddqu_si128( (__m128i *)&in[1] + 2*j ); //load in[j+1] and in[j+2]
+     b = _mm_lddqu_si128( (__m128i *)&in[1] + 2*j );  //load in[j+1] and in[j+2]
      c = _mm_lddqu_si128( (__m128i *)&in[2] + 2*j );//load in[j+2] and in[j+3]
-     d = _mm_lddqu_si128( (__m128i *)&in[3] + 2*j ); //load in[j+3] and in [j+4]
+     d = _mm_lddqu_si128( (__m128i *)&in[3] + 2*j );  //load in[j+3] and in [j+4]
 
      a = _mm_slli_epi64(a, 1);
      b = _mm_srli_epi64(b, (DIGIT_SIZE_b-1));
