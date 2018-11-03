@@ -97,22 +97,26 @@ static
 void left_bit_shift(const int length, DIGIT in[])
 {
    int j;
-   __m128i a,b;
+   __m128i a,b,c,d;
 
-   for(j = 0; j < (length-1)/2; j++){
+   for(j = 0; j < (length-1)/4; j++){
 
-     a = _mm_lddqu_si128( (__m128i *)in + j );//load in[j]
-     b = _mm_lddqu_si128( (__m128i *)&in[1] + j ); //load in[j+1]
+     a = _mm_lddqu_si128( (__m128i *)in + 2*j );//load in[j] and in[j+1]
+     b = _mm_lddqu_si128( (__m128i *)&in[1] + 2*j ); //load in[j+1] and in[j+2]
+     c = _mm_lddqu_si128( (__m128i *)&in[2] + 2*j );//load in[j+2] and in[j+3]
+     d = _mm_lddqu_si128( (__m128i *)&in[3] + 2*j ); //load in[j+3] and in [j+4]
 
      a = _mm_slli_epi64(a, 1);
      b = _mm_srli_epi64(b, (DIGIT_SIZE_b-1));
+     c = _mm_slli_epi64(c, 1);
+     d = _mm_srli_epi64(d, (DIGIT_SIZE_b-1));
 
-     _mm_storeu_si128(((__m128i *)in + j), _mm_or_si128(a, b));
+     _mm_storeu_si128(((__m128i *)in + 2*j), _mm_or_si128(a, b));
+     _mm_storeu_si128(((__m128i *)&in[2] + 2*j), _mm_or_si128(c, d));
 
    }
 
-   // PERCHE' CON UN IF NON VA? mentre con il for va?
-    for(j = j*2; j < length-1; j++) {
+    for(j = j*4; j < length-1; j++) {
      in[j] <<= 1;                    /* logical shift does not need clearing */
      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
    }
@@ -127,21 +131,27 @@ void right_bit_shift(const int length, DIGIT in[])
 {
 
    int j;
-   __m128i a,b;
+   __m128i a,b,c,d;
 
 
-   for (j = length-1; j > (length-1)%2 ; j=j-2) {
+   for (j = length-1; j > 4 ; j=j-4) {
 
-      a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j]
-      b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-1]
+      a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j-1] and in[j]
+      b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-2] and in[j-1]
+      c = _mm_lddqu_si128( (__m128i *)&in[j-3]);  //load in[j-3] and in[j-2]
+      d = _mm_lddqu_si128( (__m128i *)&in[j-4]);  //load in[j-4] and in[j-3]
+
 
       a = _mm_srli_epi64(a, 1);
       b = _mm_slli_epi64(b, (DIGIT_SIZE_b-1));
+      c = _mm_srli_epi64(c, 1);
+      d = _mm_slli_epi64(d, (DIGIT_SIZE_b-1));
+
 
       _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
+      _mm_storeu_si128(((__m128i *)&in[j-3]), _mm_or_si128(c, d));
 
    }
-
 
    for(; j > 0; j--){
      in[j] >>= 1;                    //j[1], cause if it's odd, exit
