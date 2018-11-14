@@ -36,6 +36,13 @@
 #include <string.h>  // memcpy(...), memset(...)
 #include <assert.h>
 
+#include "gf2x_arith.h"
+#include <x86intrin.h>
+#include <wmmintrin.h>
+#include <immintrin.h>
+#include <pmmintrin.h>
+
+
 /*----------------------------------------------------------------------------*/
 
 void gf2x_mod(DIGIT out[],
@@ -89,13 +96,26 @@ void gf2x_mod(DIGIT out[],
 static
 void left_bit_shift(const int length, DIGIT in[])
 {
-
    int j;
-   for (j = 0; j < length-1; j++) {
-      in[j] <<= 1;                    /* logical shift does not need clearing */
-      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   __m256i a,b;
+
+   for(j = 0; j < (length-1)/4; j++){
+
+     a = _mm256_lddqu_si256((__m256i *) &in[0] + j);//load from in[j] to in[j+3]
+     b = _mm256_lddqu_si256((__m256i *) &in[1] + j);  //load from in[j+1] to in[j+4]
+
+     a = _mm256_slli_epi64(a, 1);
+     b = _mm256_srli_epi64(b, (DIGIT_SIZE_b-1));
+
+     _mm256_storeu_si256((__m256i *) &in[0] + j, _mm256_or_si256(a,b));
    }
-   in[j] <<= 1;
+
+    for(j = j*4; j < length-1; j++) {
+     in[j] <<= 1;                    /* logical shift does not need clearing */
+     in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   }
+
+   in[length-1] <<= 1; //last element shift
 } // end left_bit_shift
 
 /*----------------------------------------------------------------------------*/
@@ -105,11 +125,28 @@ void right_bit_shift(const int length, DIGIT in[])
 {
 
    int j;
-   for (j = length-1; j > 0 ; j--) {
-      in[j] >>= 1;
-      in[j] |=  (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
+   __m256i a,b;
+
+
+   for (j = length-1; j > 4 ; j=j-4) {
+
+      a = _mm256_lddqu_si256( (__m256i *)&in[j-3]);  //load from in[j-3] to in[j]
+      b = _mm256_lddqu_si256( (__m256i *)&in[j-4]);  //load from in[j-4] to in[j-1]
+
+      a = _mm256_srli_epi64(a, 1);
+      b = _mm256_slli_epi64(b, (DIGIT_SIZE_b-1));
+
+      _mm256_storeu_si256(((__m256i *)&in[j-3]), _mm256_or_si256(a, b));
+
    }
-   in[j] >>=1;
+
+   for(; j > 0; j--){
+     in[j] >>= 1;                    //j[1], cause if it's odd, exit
+     in[j] |= (in[j-1] & (DIGIT)0x01) << (DIGIT_SIZE_b-1);
+     //"& 0x01" serve per essere sicuri che non shifti inserendo 1, dato i 2 tipi di shift right
+   }
+
+   in[j] >>= 1; //first element shift
 } // end right_bit_shift
 
 /*----------------------------------------------------------------------------*/
@@ -237,7 +274,7 @@ DIGIT reverse_digit(const DIGIT b)
 #else
 #error "Missing implementation for reverse_digit(...) \
 with this CPU word bitsize !!! "
-#endif    
+#endif
    return toReverse.digitValue;
 } // end reverse_digit
 
@@ -339,7 +376,7 @@ void gf2x_swap(const int length,
                DIGIT s[])
 {
    DIGIT t;
-   for (int i = length-1; i >= 0; i--) {
+   for (int i = length-1; i >= 0; i--) {//vett.
       t = f[i];
       f[i] = s[i];
       s[i] = t;
@@ -391,11 +428,12 @@ int gf2x_mod_inverse(DIGIT out[], const DIGIT in[])     /* in^{-1} mod x^P-1 */
    if (i < 0) return 0;
 
    if (NUM_DIGITS_GF2X_MODULUS == 1 + NUM_DIGITS_GF2X_ELEMENT)
+
       for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) f[i] = in[i-1];
    else  /* they are equal */
       for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 0 ; i--) f[i] = in[i];
 
-   for (i = 1; i <= 2*P; i++) {
+   for (i = 1; i <= 2*P; i++) {//vett.
       if ( (f[0] & mask) == 0 ) {
          left_bit_shift(NUM_DIGITS_GF2X_MODULUS, f);
          rotate_bit_left(u);
@@ -420,7 +458,7 @@ int gf2x_mod_inverse(DIGIT out[], const DIGIT in[])     /* in^{-1} mod x^P-1 */
       }
    }
 
-   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i >= 0 ; i--) out[i] = u[i];
+   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i >= 0 ; i--) out[i] = u[i]; //vett.
 
    return (delta == 0);
 } // end gf2x_mod_inverse

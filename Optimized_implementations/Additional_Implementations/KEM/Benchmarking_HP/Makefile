@@ -11,7 +11,9 @@
 
   REFERENCE_IMPL_PATH = ../../../High_Performance/KEM
 
-  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -g3 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=nocona -funroll-loops -O3
+  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -g3 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized \
+  -funroll-loops -O3 -mmmx -msse -msse2 -msse3 -msse4.1 -msse4.2 -mavx -mpopcnt -maes \
+  -mpclmul -mlzcnt -mbmi -mbmi2 -mavx2
   LDFLAGS = -lm
   INCLUDES = -I./include -I$(REFERENCE_IMPL_PATH)/include
   SRCDIR_MAIN_FILE = library

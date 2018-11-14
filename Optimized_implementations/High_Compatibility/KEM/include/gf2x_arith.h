@@ -33,6 +33,7 @@
 #pragma once
 
 #include "gf2x_limbs.h"
+
 #include <x86intrin.h>
 #include <wmmintrin.h>
 #include <immintrin.h>
