@@ -23,16 +23,16 @@
 Performance tests.
 
             Number of tests:         30
-Average key generation time:         22.812 (+,- 1.596) millisec
+Average key generation time:         22.591 (+,- 0.525) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:          3.271 (+,- 0.047) millisec
-    Average decryption time:         22.619 (+,- 0.509) millisec ... with successful decoding
+    Average encryption time:          3.283 (+,- 0.012) millisec
+    Average decryption time:         22.724 (+,- 0.669) millisec ... with successful decoding
 
-    Average decryption time:         22.619 (+,- 0.509) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         22.724 (+,- 0.669) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     1      |     2      |    22.812 (+,- 1.596) ms      |     3.271 (+,- 0.047) ms      |   22.619 (+,- 0.509) ms
+TAB    :     1      |     2      |    22.591 (+,- 0.525) ms      |     3.283 (+,- 0.012) ms      |   22.724 (+,- 0.669) ms
 
 
 Testing NIST API.
@@ -68,16 +68,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:         10.626 (+,- 0.084) millisec
+Average key generation time:         10.855 (+,- 0.103) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:          3.072 (+,- 0.036) millisec
-    Average decryption time:         26.025 (+,- 1.621) millisec ... with successful decoding
+    Average encryption time:          3.089 (+,- 0.170) millisec
+    Average decryption time:         26.183 (+,- 1.803) millisec ... with successful decoding
 
-    Average decryption time:         26.025 (+,- 1.621) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         26.183 (+,- 1.803) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     1      |     3      |    10.626 (+,- 0.084) ms      |     3.072 (+,- 0.036) ms      |   26.025 (+,- 1.621) ms
+TAB    :     1      |     3      |    10.855 (+,- 0.103) ms      |     3.089 (+,- 0.170) ms      |   26.183 (+,- 1.803) ms
 
 
 Testing NIST API.
@@ -114,16 +114,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:          9.694 (+,- 1.437) millisec
+Average key generation time:          9.392 (+,- 0.075) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:          3.822 (+,- 0.004) millisec
-    Average decryption time:         32.762 (+,- 1.101) millisec ... with successful decoding
+    Average encryption time:          3.819 (+,- 0.034) millisec
+    Average decryption time:         32.577 (+,- 1.213) millisec ... with successful decoding
 
-    Average decryption time:         32.762 (+,- 1.101) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         32.577 (+,- 1.213) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     1      |     4      |     9.694 (+,- 1.437) ms      |     3.822 (+,- 0.004) ms      |   32.762 (+,- 1.101) ms
+TAB    :     1      |     4      |     9.392 (+,- 0.075) ms      |     3.819 (+,- 0.034) ms      |   32.577 (+,- 1.213) ms
 
 
 Testing NIST API.
@@ -158,16 +158,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:         94.400 (+,- 2.731) millisec
+Average key generation time:         95.934 (+,- 4.687) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         13.541 (+,- 0.004) millisec
-    Average decryption time:         67.962 (+,- 4.851) millisec ... with successful decoding
+    Average encryption time:         13.706 (+,- 0.222) millisec
+    Average decryption time:         70.381 (+,- 4.278) millisec ... with successful decoding
 
-    Average decryption time:         67.962 (+,- 4.851) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         70.381 (+,- 4.278) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     3      |     2      |    94.400 (+,- 2.731) ms      |    13.541 (+,- 0.004) ms      |   67.962 (+,- 4.851) ms
+TAB    :     3      |     2      |    95.934 (+,- 4.687) ms      |    13.706 (+,- 0.222) ms      |   70.381 (+,- 4.278) ms
 
 
 Testing NIST API.
@@ -203,16 +203,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:         50.726 (+,- 0.778) millisec
+Average key generation time:         51.046 (+,- 1.517) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         14.220 (+,- 0.092) millisec
-    Average decryption time:         61.708 (+,- 1.600) millisec ... with successful decoding
+    Average encryption time:         14.928 (+,- 1.508) millisec
+    Average decryption time:         65.946 (+,- 7.404) millisec ... with successful decoding
 
-    Average decryption time:         61.708 (+,- 1.600) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         65.946 (+,- 7.404) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     3      |     3      |    50.726 (+,- 0.778) ms      |    14.220 (+,- 0.092) ms      |   61.708 (+,- 1.600) ms
+TAB    :     3      |     3      |    51.046 (+,- 1.517) ms      |    14.928 (+,- 1.508) ms      |   65.946 (+,- 7.404) ms
 
 
 Testing NIST API.
@@ -249,16 +249,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:         37.540 (+,- 1.748) millisec
+Average key generation time:         38.598 (+,- 1.577) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         14.944 (+,- 0.045) millisec
-    Average decryption time:         64.408 (+,- 2.592) millisec ... with successful decoding
+    Average encryption time:         15.843 (+,- 0.560) millisec
+    Average decryption time:         69.675 (+,- 4.853) millisec ... with successful decoding
 
-    Average decryption time:         64.408 (+,- 2.592) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:         69.675 (+,- 4.853) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     3      |     4      |    37.540 (+,- 1.748) ms      |    14.944 (+,- 0.045) ms      |   64.408 (+,- 2.592) ms
+TAB    :     3      |     4      |    38.598 (+,- 1.577) ms      |    15.843 (+,- 0.560) ms      |   69.675 (+,- 4.853) ms
 
 
 Testing NIST API.
@@ -293,16 +293,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:        354.555 (+,- 2.068) millisec
+Average key generation time:        365.582 (+,- 11.593) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         39.040 (+,- 0.015) millisec
-    Average decryption time:        128.310 (+,- 8.024) millisec ... with successful decoding
+    Average encryption time:         39.714 (+,- 0.787) millisec
+    Average decryption time:        131.545 (+,- 8.787) millisec ... with successful decoding
 
-    Average decryption time:        128.310 (+,- 8.024) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:        131.545 (+,- 8.787) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     5      |     2      |   354.555 (+,- 2.068) ms      |    39.040 (+,- 0.015) ms      |  128.310 (+,- 8.024) ms
+TAB    :     5      |     2      |   365.582 (+,- 11.593) ms      |    39.714 (+,- 0.787) ms      |  131.545 (+,- 8.787) ms
 
 
 Testing NIST API.
@@ -338,16 +338,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:        160.450 (+,- 0.618) millisec
+Average key generation time:        164.763 (+,- 5.840) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         41.655 (+,- 0.045) millisec
-    Average decryption time:        124.222 (+,- 6.519) millisec ... with successful decoding
+    Average encryption time:         41.957 (+,- 0.235) millisec
+    Average decryption time:        124.416 (+,- 5.221) millisec ... with successful decoding
 
-    Average decryption time:        124.222 (+,- 6.519) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:        124.416 (+,- 5.221) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     5      |     3      |   160.450 (+,- 0.618) ms      |    41.655 (+,- 0.045) ms      |  124.222 (+,- 6.519) ms
+TAB    :     5      |     3      |   164.763 (+,- 5.840) ms      |    41.957 (+,- 0.235) ms      |  124.416 (+,- 5.221) ms
 
 
 Testing NIST API.
@@ -384,16 +384,16 @@ crypto_kem_keypair returned:          0
 Performance tests.
 
             Number of tests:         30
-Average key generation time:        107.401 (+,- 1.420) millisec
+Average key generation time:        107.328 (+,- 0.467) millisec
 Number of correct decodings:         30
   ---  ---      decryptions:         30
-    Average encryption time:         44.344 (+,- 0.060) millisec
-    Average decryption time:        179.113 (+,- 5.641) millisec ... with successful decoding
+    Average encryption time:         44.837 (+,- 0.988) millisec
+    Average decryption time:        178.108 (+,- 5.980) millisec ... with successful decoding
 
-    Average decryption time:        179.113 (+,- 5.641) millisec ... with successful decoding, and ptx and decrypted ctx match
+    Average decryption time:        178.108 (+,- 5.980) millisec ... with successful decoding, and ptx and decrypted ctx match
 
          Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time
-TAB    :     5      |     4      |   107.401 (+,- 1.420) ms      |    44.344 (+,- 0.060) ms      |  179.113 (+,- 5.641) ms
+TAB    :     5      |     4      |   107.328 (+,- 0.467) ms      |    44.837 (+,- 0.988) ms      |  178.108 (+,- 5.980) ms
 
 
 Testing NIST API.

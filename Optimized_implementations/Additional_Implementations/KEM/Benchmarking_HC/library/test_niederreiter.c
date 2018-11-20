@@ -247,7 +247,7 @@ void test_KEM_niederreiter_code(int ac, char *av[], long unsigned int NumTests)
 
    fprintf(stderr, "\n"); //print the parameters and the time needed.
    fprintf(stderr, "         Category   |     N0     |  Average key generation time  |    Average encryption time    |  Average decryption time\n");
-   fprintf(stderr, "TABULAR: %5d%5s | %5d%5s | %9.3Lf (+,- %.3Lf) ms      | %9.3Lf (+,- %.3Lf) ms      |  %7.3Lf (+,- %.3Lf) ms  \n",
+   fprintf(stderr, "TAB    : %5d%5s | %5d%5s | %9.3Lf (+,- %.3Lf) ms      | %9.3Lf (+,- %.3Lf) ms      |  %7.3Lf (+,- %.3Lf) ms  \n",
      CATEGORY, " ", N0, " ",
      sm_keygen, sqrtl(sm2_keygen/(NumTests-1)),
      sm_enc, sqrtl(sm2_enc/(NumTests-1)),
