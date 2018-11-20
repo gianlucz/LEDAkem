@@ -41,7 +41,7 @@
 #include <wmmintrin.h>
 #include <immintrin.h>
 #include <pmmintrin.h>
-
+#define UNR 3
 
 /*----------------------------------------------------------------------------*/
 
@@ -97,20 +97,17 @@ static
 void left_bit_shift(const int length, DIGIT in[])
 {
    int j;
-   __m128i a,b,c,d,e,f,g,h;
+   __m128i a,b,c,d,e,f;
 
 
-   for(j = 0; j < (length-1)/8; j++){
+   for(j = 0; j < (length-1)/(UNR*2); j++){
 
-     a = _mm_lddqu_si128( (__m128i *)&in[0] + 4*j );//load in[j] and in[j+1]
-     b = _mm_lddqu_si128( (__m128i *)&in[1] + 4*j );  //load in[j+1] and in[j+2]
-     c = _mm_lddqu_si128( (__m128i *)&in[2] + 4*j );//load in[j+2] and in[j+3]
-     d = _mm_lddqu_si128( (__m128i *)&in[3] + 4*j );  //load in[j+3] and in [j+4]
-     e = _mm_lddqu_si128( (__m128i *)&in[4] + 4*j );//load in[j+4] and in[j+5]
-     f = _mm_lddqu_si128( (__m128i *)&in[5] + 4*j );  //load in[j+5] and in [j+6]
-     g = _mm_lddqu_si128( (__m128i *)&in[6] + 4*j );//load in[j+4] and in[j+5]
-     h = _mm_lddqu_si128( (__m128i *)&in[7] + 4*j );  //load in[j+5] and in [j+6]
-
+     a = _mm_lddqu_si128( (__m128i *)&in[0] + UNR*j );//load in[j] and in[j+1]
+     b = _mm_lddqu_si128( (__m128i *)&in[1] + UNR*j );  //load in[j+1] and in[j+2]
+     c = _mm_lddqu_si128( (__m128i *)&in[2] + UNR*j );//load in[j+2] and in[j+3]
+     d = _mm_lddqu_si128( (__m128i *)&in[3] + UNR*j );  //load in[j+3] and in [j+4]
+     e = _mm_lddqu_si128( (__m128i *)&in[4] + UNR*j );//load in[j+4] and in[j+5]
+     f = _mm_lddqu_si128( (__m128i *)&in[5] + UNR*j );  //load in[j+5] and in [j+6]
 
 
      a = _mm_slli_epi64(a, 1);
@@ -119,20 +116,16 @@ void left_bit_shift(const int length, DIGIT in[])
      d = _mm_srli_epi64(d, (DIGIT_SIZE_b-1));
      e = _mm_slli_epi64(e, 1);
      f = _mm_srli_epi64(f, (DIGIT_SIZE_b-1));
-     g = _mm_slli_epi64(g, 1);
-     h = _mm_srli_epi64(h, (DIGIT_SIZE_b-1));
 
 
-     _mm_storeu_si128(((__m128i *)&in[0] + 4*j), _mm_or_si128(a, b));
-     _mm_storeu_si128(((__m128i *)&in[2] + 4*j), _mm_or_si128(c, d));
-     _mm_storeu_si128(((__m128i *)&in[4] + 4*j), _mm_or_si128(e, f));
-     _mm_storeu_si128(((__m128i *)&in[6] + 4*j), _mm_or_si128(g, h));
-
+     _mm_storeu_si128(((__m128i *)&in[0] + UNR*j), _mm_or_si128(a, b));
+     _mm_storeu_si128(((__m128i *)&in[2] + UNR*j), _mm_or_si128(c, d));
+     _mm_storeu_si128(((__m128i *)&in[4] + UNR*j), _mm_or_si128(e, f));
 
 
    }
 
-    for(j = j*8; j < length-1; j++) {
+    for(j = j*(UNR*2); j < length-1; j++) {
      in[j] <<= 1;                    /* logical shift does not need clearing */
      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
    }
@@ -147,10 +140,10 @@ void right_bit_shift(const int length, DIGIT in[])
 {
 
    int j;
-   __m128i a,b,c,d,e,f,g,h;
+   __m128i a,b,c,d,e,f;
 
 
-   for (j = length-1; j > 8 ; j=j-8) {
+   for (j = length-1; j > UNR*2 ; j=j-(UNR*2)) {
 
       a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j-1] and in[j]
       b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-2] and in[j-1]
@@ -158,8 +151,6 @@ void right_bit_shift(const int length, DIGIT in[])
       d = _mm_lddqu_si128( (__m128i *)&in[j-4]);  //load in[j-4] and in[j-3]
       e = _mm_lddqu_si128( (__m128i *)&in[j-5]);  //load in[j-5] and in[j-4]
       f = _mm_lddqu_si128( (__m128i *)&in[j-6]);  //load in[j-5] and in[j-6]
-      g = _mm_lddqu_si128( (__m128i *)&in[j-7]);
-      h = _mm_lddqu_si128( (__m128i *)&in[j-8]);
 
 
       a = _mm_srli_epi64(a, 1);
@@ -168,15 +159,11 @@ void right_bit_shift(const int length, DIGIT in[])
       d = _mm_slli_epi64(d, (DIGIT_SIZE_b-1));
       e = _mm_srli_epi64(e, 1);
       f = _mm_slli_epi64(f, (DIGIT_SIZE_b-1));
-      g = _mm_srli_epi64(g, 1);
-      h = _mm_slli_epi64(h, (DIGIT_SIZE_b-1));
 
 
       _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
       _mm_storeu_si128(((__m128i *)&in[j-3]), _mm_or_si128(c, d));
       _mm_storeu_si128(((__m128i *)&in[j-5]), _mm_or_si128(e, f));
-      _mm_storeu_si128(((__m128i *)&in[j-7]), _mm_or_si128(g, h));
-
 
    }
 
