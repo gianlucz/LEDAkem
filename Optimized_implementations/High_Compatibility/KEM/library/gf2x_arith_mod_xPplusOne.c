@@ -92,6 +92,8 @@ void gf2x_mod(DIGIT out[],
 } // end gf2x_mod
 
 /*----------------------------------------------------------------------------*/
+//gmp gnu multiple precision library + ntl library installare e guardare ottimizzazioni per gli shift con objdump
+// più algoritmo di inversione
 
 static
 void left_bit_shift(const int length, DIGIT in[])
