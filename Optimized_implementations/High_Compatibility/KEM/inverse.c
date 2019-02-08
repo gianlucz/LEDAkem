@@ -1,5 +1,3 @@
-#define w (DIGIT_SIZE_b)
-
 /*----------------------------------------------------------------------------*/
 /*
  * Elements of GF(2)[x] are stored in compact dense binary form.
@@ -42,29 +40,137 @@
 /*----------------------------------------------------------------------------*/
 
 
-void matrix_mult(DIGIT a[2][2], DIGIT b[2][2]){
-        DIGIT h[2][2] = {0};
-        int i, j, k;
 
-        for(i = 0; i < 2, i++){
-            for(j = 0; j < 2, j++){
-                for(k = 0; k < 2, k++){
+#define DIGIT_SIZE_b 64
+#define w (DIGIT_SIZE_b)
+#define NUM_BITS_GF2X_ELEMENT (P) //grado del polinomio
+#define m (2*(NUM_BITS_GF2X_ELEMENT +1) / w)
+#define NUM_DIGITS_GF2X_MODULUS ((NUM_BITS_GF2X_ELEMENT+1+DIGIT_SIZE_b-1)/DIGIT_SIZE_b)
 
-                    h[i][j] += a[i][k] * b[k][j]; //gf2xadd?
+#include <x86intrin.h>
+#include <wmmintrin.h>
+#include <immintrin.h>
+#include <pmmintrin.h>
+#include <string.h>
+#include <assert.h>
 
-                }
-            }
-        }
-        b = h;
+
+void gf2x_add(const int nr, DIGIT Res[],
+              const int na, const DIGIT A[],
+              const int nb, const DIGIT B[])
+{
+  __m128i a, b;
+
+ for (unsigned i = 0; i < nr/2; i++){
+     a = _mm_lddqu_si128( (__m128i *)A + i );
+     b = _mm_lddqu_si128( (__m128i *)B + i );
+
+     _mm_storeu_si128(((__m128i *)Res + i), _mm_xor_si128(a, b));
+  }
+
+  if(nr%2 != 0){
+      Res[nr-1] = A[nr-1] ^ B[nr-1];
+  }
+ }
+
+
+/*From : https://graphics.stanford.edu/~seander/bithacks.html#IntegerLog
+given that v is a power of 2*/
+
+int higherBitSet(DIGIT v)
+{
+    static const DIGIT b[] = {0xAAAAAAAAAAAAAAAA, 0xCCCCCCCCCCCCCCCC,
+         0xF0F0F0F0F0F0F0F0, 0xFF00FF00FF00FF00,
+         0xFFFF0000FFFF0000, 0xFFFFFFFF00000000}
+    unsigned int r = (v & b[0]) != 0;
+
+        r |= ((v & b[5]) != 0) << 5;
+        r |= ((v & b[4]) != 0) << 4;
+        r |= ((v & b[3]) != 0) << 3;
+        r |= ((v & b[2]) != 0) << 2;
+        r |= ((v & b[1]) != 0) << 1;
+
+    return r;
 }
 
 
-void multi_single_mult(DIGIT in[], const DIGIT matrix[], int imm){
-    int l = m-2;
-    __m128i h,y1,y2,y3,y4,y5;
-    _m64 xr0,x1,x2;
+// H1=((x 0) (0 1))
+void multByH1(DIGIT h00, DIGIT h01, DIGIT h10, DIGIT h11)
+{
+    DIGIT r00, r01, r10, r11;
 
-    h = _mm_lddqu_si128((__m128i *)&matrix[0]);
+    r00 = h00 << 1;
+    r01 = h01 << 1;
+    r10 = h10;
+    r11 = h11;
+
+    h00 = r00; h01 = r01; h10 = r10; h11 = r11;
+}
+
+// H2=((x x) (1 0))
+void multByH2(DIGIT h00, DIGIT h01, DIGIT h10, DIGIT h11)
+{
+    DIGIT r00, r01, r10, r11;
+
+    r00 = (h00 << 1) ^ (h10 << 1);
+    r01 = (h01 << 1) ^ (h11 << 1);
+    r10 = h00;
+    r11 = h01;
+
+    h00 = r00; h01 = r01; h10 = r10; h11 = r11;
+}
+
+// H3=((0 x) (1 0))
+void multByH3(DIGIT h00, DIGIT h01, DIGIT h10, DIGIT h11)
+{
+    DIGIT r00, r01, r10, r11;
+
+    r00 =  h10 << 1;
+    r01 =  h11 << 1;
+    r10 = h00;
+    r11 = h01;
+
+    h00 = r00; h01 = r01; h10 = r10; h11 = r11;
+}
+
+// H4=((1 0) (x x))
+void multByH4(DIGIT h00, DIGIT h01, DIGIT h10, DIGIT h11)
+{
+    DIGIT r00, r01, r10, r11;
+
+    r00 = h00;
+    r01 = h01;
+    r10 = (h00 << 1) ^ (h10 << 1);
+    r11 = (h01 << 1) ^ (h11 << 1);
+
+    h00 = r00; h01 = r01; h10 = r10; h11 = r11;
+}
+
+// H5=((1 0) (0 x))
+void multByH5(DIGIT h00, DIGIT h01, DIGIT h10, DIGIT h11)
+{
+    DIGIT r00, r01, r10, r11;
+
+    r00 = h00;
+    r01 = h01;
+    r10 = h01 << 1;
+    r11 = h11 << 1;
+
+    h00 = r00; h01 = r01; h10 = r10; h11 = r11;
+}
+
+
+
+void multi_single_mult(DIGIT in[], DIGIT out[], DIGIT h_0, DIGIT h_1, int imm)
+{
+    int l = m-2;
+    __m128i h, y1, y2, y3, y4, y5;
+    _m64 xr0, x1, x2; // h1, h2;
+
+//    h0 = _mm_lddqu_si64(h_0);
+//    h1 = _mm_lddqu_si64(h_1);
+
+    h = _mm_lddqu_si128(_mm_set_epi64((_m64)h1,(_m64)h2));
 
     y1 = _mm_lddqu_si128((__m128i *)&in[l]);
     y2 = _mm_lddqu_si128((__m128i *)&in[l] - 1);
@@ -141,20 +247,29 @@ void left_bits_shifting(const int length, DIGIT in[], DIGIT out[], int amount)
    in[length-1] <<= amount; //last element shift
 }
 
-int inverse(DIGIT out[], const DIGIT in[]){
-    DIGIT v[NUM_DIGITS_GF2X_ELEMENT] = {0}, // V(x)
-                u[NUM_DIGITS_GF2X_ELEMENT] = {0}, // U(x)
-                    s[NUM_DIGITS_GF2X_ELEMENT] = {0}, // S(x)
-                        r[NUM_DIGITS_GF2X_ELEMENT] = {0}; // R(x)
+
+
+/* Execution time it's not constant: may vary due to some optimization for
+*  calculating the matrix H(x) and the multi-word per single word multiplication.
+*
+* Based on: An Algorithm for Inversion in GF(2m) Suitable for Implementation Using
+* a Polynomial Multiply Instruction on GF(2).
+*
+* Katsuki Kobayashi, Naofumi Takagi, and Kazuyoshi Takagi.
+*/
+void inverse(DIGIT out[], const DIGIT in[]){
+    DIGIT v[2*NUM_DIGITS_GF2X_ELEMENT] = {0}, // V(x)
+                u[2*NUM_DIGITS_GF2X_ELEMENT] = {0}, // U(x)
+                    s[2*NUM_DIGITS_GF2X_ELEMENT] = {0}, // S(x)
+                        r[2*NUM_DIGITS_GF2X_ELEMENT] = {0}; // R(x)
 
     u[NUM_DIGITS_GF2X_ELEMENT-1] = 0x1;
     v[NUM_DIGITS_GF2X_ELEMENT-1] = 0x0;
 
 
     DIGIT c, d; //C(x),D(x)
-    DIGIT h[2][2]; // matrix H(x)
+    DIGIT h00, h01, h10, h11; // matrix H(x)
 
-    int m = NUM_BITS_GF2X_ELEMENT +1 / w;
     int shift_amount = 0;
     int deg_r = NUM_BITS_GF2X_ELEMENT;
     int deg_s = NUM_BITS_GF2X_ELEMENT;
@@ -162,8 +277,11 @@ int inverse(DIGIT out[], const DIGIT in[]){
     DIGIT mask = 0x1;
     int i,j;
 
-    for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) r[i] = in[i];
+    for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) s[i] = in[i];
 
+    //what we divide it's x^P +1  for our polynomial
+    v[0] = 0x7FFFFFFFFFFFFFFF; // x^P
+    v[NUM_DIGITS_GF2X_ELEMENT-1] = 0x1; // + 1
 
     while (deg_r > 0) {
         c = r[0]; //R(m-1)
@@ -172,7 +290,7 @@ int inverse(DIGIT out[], const DIGIT in[]){
         if(c == 0){ //C(x) = 0
             __m128i y1,y2;
 
-            for(j = 0; j<m-1; j= j+2){ // may use memcpy( dest* , source*, bytes);
+            for(j = 0; j<m-1; j= j+2){ // may use memmove( dest* , source*, bytes);
                 y1 = _mm_lddqu_si128((__m128i *)&r[j+1]);
                 y2 = _mm_lddqu_si128((__m128i *)&s[j+1]);
                 _mm_storeu_si128((__m128i *)&r[j], y1);
@@ -187,123 +305,143 @@ int inverse(DIGIT out[], const DIGIT in[]){
 
             deg_r -= w;
         }else{ //define H(X)
-            h[0][0] = 0x1;
-            h[0][1] = 0x0;
-            h[1][0] = 0x0;
-            h[1][1] = 0x1;
+            h00 = 0x1;
+            h01 = 0x0;
+            h10 = 0x0;
+            h11 = 0x1;
             j = 1;
 
             while(j < w && deg_r > 0){
                 j++;
                 if(c & mask == 0){
                     c << 1;
-                    DIGIT h1[2][2] = {2,0,0,1};
-                    matrix_mult(h1,h);
+                    multByH1(h00, h01, h10, h11);
                     deg_r --;
                 }else{
                     if(deg_r == deg_s){
                         deg_r--;
                         if(d & mask == 1){
                             DIGIT tmp = c;
-                            c = c - d;
+                            c = c ^ d; //xor
                             c << 1;
                             d = tmp;
-                            DIGIT h2[2][2] = {2,2,1,0};
-                            matrix_mult(h2,h);
+
+                            multByH2(h00, h01, h10, h11);
                         }else{
                             DIGIT tmp = c;
                             c = d << 1;
                             d = tmp;
-                            DIGIT h2[2][2] = {0,2,1,0};
-                            matrix_mult(h2,h);
-                        }
-                    }//endif
+
+                            multByH3(h00, h01, h10, h11);
+                        }//endif
+                    }
                     else{
                         deg_s--;
                         if(d & mask == 1){
-                            d = c - d;
+                            d = c ^ d;
                             d << 1;
-                            DIGIT h3[2][2] = {1,0,2,2};
-                            matrix_mult(h3,h);
+
+                            multByH4(h00, h01, h10, h11);
                         }else{
                             d << 1;
-                            DIGIT h3[2][2] = {1,0,0,2};
-                            matrix_mult(h3,h);
-                        }
-                    }
-                }
+
+                            multByH5(h00, h01, h10, h11);
+                        }//endif
+                    }//endif
+                }//endif
             }//end while
-            r_h0[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                r_h2[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                    s_h1[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                        s_h3[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                            u_h0[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                                u_h2[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                                    v_h1[NUM_DIGITS_GF2X_ELEMENT] = {0},
-                                        v_h3[NUM_DIGITS_GF2X_ELEMENT] = {0};
 
-            if(h[0][0] == 0){
-                r_h0 = 0;
-                u_h0 = 0;
-            }
-            else if(popcnt_u64(h[0][0]) == 1){ //_BitScanForward64(shift, h[i][i]) ?
-                int shift;
-                if(h[0][0] & mask_x3){
-                    shift = 3;
-                }else if(h[0][0] & mask_x2){
-                    shift = 2;
-                }else if(h[0][0] & mask_x){
-                    shift = 1;
-                }
+            //(R(x) S(x))*H(x) and (U(x) V(x)) * H(x)
 
-                r_h0 = left_bits_shifting(NUM_DIGITS_GF2X_ELEMENT, r, r_h0, shift);
-                u_h0 = left_bits_shifting(NUM_DIGITS_GF2X_ELEMENT, u, u_h0, shift);
-            }
-            else{
-                r_h0 = multi_single_mult(r, h[0], 0);
-                u_h0 = multi_single_mult(u, h[0], 0);
-            } //end h[0][0]
+            r_t[2*NUM_DIGITS_GF2X_ELEMENT] = {0},
+                s_t[2*NUM_DIGITS_GF2X_ELEMENT] = {0},
+                    u_t[2*NUM_DIGITS_GF2X_ELEMENT] = {0},
+                        v_t[2*NUM_DIGITS_GF2X_ELEMENT] = {0},
+                            tmp[2*NUM_DIGITS_GF2X_ELEMENT] = {0};
 
-            if (h[0][1] == 0){
-                s_h1 = 0;
-                v_h1 = 0;
+
+            if(h00 == 0){
+                r_t = {0};
+                u_t = {0};
+                tmp = {0};
+            }else if(popcnt_u64(h00) == 1){
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, r, r_t, higherBitSet(h00));
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, u, u_t, higherBitSet(h00));
             }else{
-                s_h1 = multi_single_mult(s, h[0], 16);
-                v_h1 = multi_single_mult(v, h[0], 16);
-            }
+                multi_single_mult(r, r_t, h00, h01, 0);
+                multi_single_mult(u, u_t, h00, h01, 0);
+            } //end h00
 
-            if (h[1][0] == 0){
-                r_h2 = 0;
-                u_h2 = 0;
-            }else{
-                r_h2 = multi_single_mult(r, h[1], 0);
-                u_h2 = multi_single_mult(u, h[1], 0);
-            }
-            if (h[1][1] == 0){
-                s_h3 = 0;
-                v_h3 = 0;
-            }else{
-                s_h3 = multi_single_mult(s, h[1], 16);
-                v_h3 = multi_single_mult(v, h[1], 16);
-            }
+            if (h01 == 0){
+                //do nothing
+            }else if(popcnt_u64(h01) == 1){
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, s, tmp, higherBitSet(h01)); //??
+                r_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, r_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, r_t);
 
-            r = r_h0 + s_h1;//+ should be a gf2x add
-            s = r_h2 + s_h3;
-            u = u_h0 + v_h1;
-            v = u_h2 + v_h3;
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, v, tmp, higherBitSet(h01));
+                u_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, u_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, u_t);
+
+            }else{ //use r_t and u_t as temporary register to store the intermediate passage
+                multi_single_mult(s, tmp, h00, h01, 16);
+                r_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, r_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, r_t);
+
+                multi_single_mult(v, tmp, h00, h01 16);
+                u_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, u_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, u_t);
+            }//end h01
+
+
+            if (h10 == 0){
+                s_t = {0};
+                v_t = {0};
+                tmp = {0};
+            }else if(popcnt_u64(h10) == 1){
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, r, s_t, higherBitSet(h10));
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, u, v_t, higherBitSet(h10));
+            }else{
+                s_t = multi_single_mult(r, s_t, h10, h11, 0);
+                v_t = multi_single_mult(u, v_t, h10, h11, 0);
+            }//end h10
+
+            if (h11 == 0){
+                //do nothing
+            }else if(popcnt_u64(h11) == 1){
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, s, tmp, higherBitSet(h11));
+                s_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, s_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, s_t);
+
+                left_bits_shifting(2*NUM_DIGITS_GF2X_ELEMENT, v, tmp, higherBitSet(h11));
+                v_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, v_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, v_t);
+            }else{
+                // use r_t and u_t as temporary register to store the intermediate passage
+                multi_single_mult(s, tmp, h10, h11, 16);
+                s_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, s_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, s_t);
+
+                multi_single_mult(v, tmp, h10, h11, 16);
+                v_t = gf2x_add(2*NUM_DIGITS_GF2X_ELEMENT, v_t,
+                                2*NUM_DIGITS_GF2X_ELEMENT, tmp,
+                                2*NUM_DIGITS_GF2X_ELEMENT, v_t);
+            }//end h11
+
+
+            r = r_t;
+            s = s_t;
+            u = u_t;
+            v = v_t;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
