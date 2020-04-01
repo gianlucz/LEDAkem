@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -pedantic -Wuninitialized -march='sandybridge' -O3   CMakeFiles/inverse_bench_7853.dir/gf2x_arith.c.o CMakeFiles/inverse_bench_7853.dir/gf2x_arith_mod_xPplusOne.c.o CMakeFiles/inverse_bench_7853.dir/djbsort.c.o CMakeFiles/inverse_bench_7853.dir/inverse_bench.c.o  -o inverse_bench_7853 -lm 

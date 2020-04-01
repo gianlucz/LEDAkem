@@ -237,7 +237,7 @@ DIGIT reverse_digit(const DIGIT b)
 #else
 #error "Missing implementation for reverse_digit(...) \
 with this CPU word bitsize !!! "
-#endif    
+#endif
    return toReverse.digitValue;
 } // end reverse_digit
 
