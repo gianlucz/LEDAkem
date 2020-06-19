@@ -1,0 +1,9 @@
+\%7547
+
+\begin{table}[ht] 
+\centering 
+\caption{7547 128 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 

@@ -72,7 +72,7 @@ void print_pol(DIGIT pol[], char polin[], int len)
 
 }
 
-#if (defined HIGH_COMPATIBILITY_X86_64 || HIGH_PERFORMANCE_X86_64)
+#if (defined HIGH_COMPATIBILITY_X86_64 || defined HIGH_PERFORMANCE_X86_64)
 
 void print_pol128(__m128i pol, char polin[])
 {
@@ -672,22 +672,6 @@ int divstepsx_256(int n, int t,
 }
 #endif
 
-
-/*  truncates polynomial inout to degree, zeroing other coefficients,
- *  returns pointer to truncated polynomial region */
-DIGIT* gf2x_trunc(int inDigitLen, DIGIT inout[], int degree){
-
-    int straightIdx = (inDigitLen*DIGIT_SIZE_b -1) - degree;
-    int digitIdx = straightIdx / DIGIT_SIZE_b;
-    unsigned int inDigitIdx = straightIdx % DIGIT_SIZE_b;
-    /*poly does not fill the MS digit, clear slack*/
-    if(inDigitIdx != 0){
-        DIGIT mask = (( (DIGIT) 1) << (DIGIT_SIZE_b-1-inDigitIdx+1))- ((DIGIT)1);
-        inout[digitIdx] &= mask;
-    }
-    return inout+digitIdx;
-}
-
 #if (defined HIGH_PERFORMANCE_X86_64)
 
 /*needed when n>128 & n<256*/
@@ -696,6 +680,7 @@ int support_jumpdivstep(int n, int t, int delta,
                         DIGIT t00[], DIGIT t01[],
                         DIGIT t10[], DIGIT t11[], float x)
 {
+//    printf("eccomi\n" );
         if (n < 128) {
 
             return delta = divstepsx_128(n, t, delta,
@@ -716,24 +701,12 @@ int support_jumpdivstep(int n, int t, int delta,
    DIGIT p_00[num_digits_j],p_01[num_digits_j],
          p_10[num_digits_j],p_11[num_digits_j];
 
-   /* note: these local_f and local_g will be used by the downward call
-    * they must be dup'ed and trimmed to the proper digit */
-
-   DIGIT local_f[num_digits_j];
-   DIGIT local_g[num_digits_j];
-
-   memcpy(local_f, f+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-   memcpy(local_g, g+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-
-   DIGIT *trunc_f, *trunc_g;
-   trunc_f = gf2x_trunc(num_digits_j, local_f, j);
-   trunc_g = gf2x_trunc(num_digits_j, local_g, j);
 
 //printf("delta1 = %i\n", delta);
 
    delta = support_jumpdivstep(j, j, delta, num_digits_j,
-                       trunc_f,
-                       trunc_g,
+                       f+(nf-num_digits_j),
+                       g+(nf-num_digits_j),
                        p_00, p_01, p_10, p_11, x);
 
        /* note: entire f and g must be matrixmultiplied! use the ones from above */
@@ -763,8 +736,8 @@ int support_jumpdivstep(int n, int t, int delta,
 
    delta = support_jumpdivstep(n - j, n - j, delta,
                        num_digits_nminusj,
-                       gf2x_trunc(num_digits_j+nf, f_sum, n-j), //-1?
-                       gf2x_trunc(num_digits_j+nf, g_sum, n-j),
+                       f_sum + (num_digits_j+nf - num_digits_nminusj),
+                       g_sum + (num_digits_j+nf - num_digits_nminusj),
                        q_00, q_01, q_10, q_11, x);
 
    DIGIT large_tmp[num_digits_j+num_digits_nminusj];
@@ -838,7 +811,8 @@ int jumpdivstep(int n, int t, int delta,
 #else
 
     if (n <= 63) {
-     return delta = divstepsx(n, t, delta, f[0],
+     return delta = divstepsx(n, t, delta,
+            f[0],
             g[0],
             t00, t01,
             t10, t11);
@@ -856,22 +830,10 @@ int jumpdivstep(int n, int t, int delta,
          p_10[num_digits_j],p_11[num_digits_j];
 
 
-   /* note: these local_f and local_g will be used by the downward call
-    * they must be dup'ed and trimmed to the proper digit */
-
-   DIGIT local_f[num_digits_j];
-   DIGIT local_g[num_digits_j];
-
-   memcpy(local_f, f+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-   memcpy(local_g, g+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-
-   DIGIT *trunc_f, *trunc_g;
-   trunc_f = gf2x_trunc(num_digits_j, local_f, j);
-   trunc_g = gf2x_trunc(num_digits_j, local_g, j);
-
    delta = jumpdivstep(j, j, delta, num_digits_j,
-                       trunc_f, trunc_g,
-                       p_00, p_01, p_10, p_11, x);
+                        f+(nf-num_digits_j),
+                        g+(nf-num_digits_j),
+                        p_00, p_01, p_10, p_11, x);
 
 
    /* note: entire f and g must be matrixmultiplied! use the ones from above */
@@ -904,8 +866,8 @@ int jumpdivstep(int n, int t, int delta,
 */
    delta = jumpdivstep(n - j, n - j, delta,
                        num_digits_nminusj,
-                       gf2x_trunc(num_digits_j+nf, f_sum, n-j),
-                       gf2x_trunc(num_digits_j+nf, g_sum, n-j),
+                       f_sum + (num_digits_j+nf - num_digits_nminusj),
+                       g_sum + (num_digits_j+nf - num_digits_nminusj),
                        q_00, q_01, q_10, q_11, x);
 
    DIGIT large_tmp[num_digits_j+num_digits_nminusj];
@@ -941,130 +903,8 @@ int jumpdivstep(int n, int t, int delta,
    return delta;
 }
 
-/*since largeg and largef are half zero, this fuction skip the jumpdivstep call on the zero part*/
-int jumpdivstep_first(int n, int t, int delta,
-                int nf, DIGIT   f[], DIGIT g[],
-                DIGIT t00[], DIGIT t01[],
-                DIGIT t10[], DIGIT t11[], float x)
-{
 
-
-    #if (defined HIGH_PERFORMANCE_X86_64)
-        int ws = 256;
-    #elif (defined HIGH_COMPATIBILITY_X86_64)
-        int ws = 128;
-    #else
-        int ws = DIGIT_SIZE_b;
-    #endif
-
-    /* round the cutting point to a digit limit */
-   int j = n*x;
-   j = (j+ws-2)/(ws-1);
-   j = j * (ws-1);
-
-   int num_digits_j       = j/DIGIT_SIZE_b+1; /* (j+DIGIT_SIZE_b-1)/DIGIT_SIZE_b */;
-   DIGIT p_00[num_digits_j],p_01[num_digits_j],
-         p_10[num_digits_j],p_11[num_digits_j];
-
-
-   /* note: these local_f and local_g will be used by the downward call
-    * they must be dup'ed and trimmed to the proper digit */
-
-   DIGIT local_f[num_digits_j];
-   DIGIT local_g[num_digits_j];
-
-   memcpy(local_f, f+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-   memcpy(local_g, g+(nf-num_digits_j), num_digits_j * DIGIT_SIZE_B);
-
-   DIGIT *trunc_f, *trunc_g;
-   trunc_f = gf2x_trunc(num_digits_j, local_f, j);
-   trunc_g = gf2x_trunc(num_digits_j, local_g, j);
-
- //  printf("%i\n",j );
-   //print_pol(trunc_f,"trunc_f", num_digits_j);
-   //print_pol(trunc_g,"trunc_g", num_digits_j);
-
-
-   delta = jumpdivstep(j, j, delta, num_digits_j,
-                       trunc_f, trunc_g,
-                       p_00, p_01, p_10, p_11, x);
-                //       print_pol(p_00,"p00", num_digits_j);
-                //       print_pol(p_01,"p01", num_digits_j);
-                //       print_pol(p_10,"p10", num_digits_j);
-                //       print_pol(p_11,"p11", num_digits_j);
-
-
-   /* note: entire f and g must be matrixmultiplied! use the ones from above */
-   DIGIT f_sum[num_digits_j+nf];
-   DIGIT g_sum[num_digits_j+nf];
-
-   gf2x_scalarprod(num_digits_j+nf, f_sum,
-                   num_digits_j,    p_00, p_01,
-                   nf,                    f, g);
-
-   gf2x_scalarprod(num_digits_j+nf, g_sum,
-                   num_digits_j,    p_10, p_11,
-                   nf,                    f, g);
-
-
-   right_bit_shift_wide_n(num_digits_j+nf, f_sum, j);
-   right_bit_shift_wide_n(num_digits_j+nf, g_sum, j);
-
-   //print_pol(f_sum,"fsum", num_digits_j+nf);
-   //print_pol(g_sum,"gsum", num_digits_j+nf);
-   /* truncate to n-j degree, i.e. to n-j bits from the bottom */
-   int num_digits_nminusj = (n-j)/DIGIT_SIZE_b+1;
-
-   DIGIT  q_00[num_digits_nminusj],
-          q_01[num_digits_nminusj],
-          q_10[num_digits_nminusj],
-          q_11[num_digits_nminusj];
- /*  memset(q_00,0x00,num_digits_nminusj*DIGIT_SIZE_B);
-   memset(q_01,0x00,num_digits_nminusj*DIGIT_SIZE_B);
-   memset(q_10,0x00,num_digits_nminusj*DIGIT_SIZE_B);
-   memset(q_11,0x00,num_digits_nminusj*DIGIT_SIZE_B);
-*/
-    //printf("n-j= %i\n",n-j );
-   delta = jumpdivstep(n - j, n - j, delta,
-                       num_digits_nminusj,
-                       gf2x_trunc(num_digits_j+nf, f_sum, n-j),
-                       gf2x_trunc(num_digits_j+nf, g_sum, n-j),
-                       q_00, q_01, q_10, q_11, x);
-
-   DIGIT large_tmp[num_digits_j+num_digits_nminusj];
-//   memset(large_tmp,0x00,(num_digits_j+num_digits_nminusj)*DIGIT_SIZE_B);
-
-   gf2x_scalarprod(num_digits_j+num_digits_nminusj, large_tmp,
-                   num_digits_j,                    p_00, p_10,
-                   num_digits_nminusj,                    q_00, q_01);
-   memcpy(t00,
-          large_tmp+(num_digits_j+num_digits_nminusj-nf),
-          (nf)*DIGIT_SIZE_B);
-
-   gf2x_scalarprod(num_digits_j+num_digits_nminusj, large_tmp,
-                   num_digits_j,                    p_01, p_11,
-                   num_digits_nminusj,                    q_00, q_01);
-   memcpy(t01,
-          large_tmp+(num_digits_j+num_digits_nminusj-nf),
-          (nf)*DIGIT_SIZE_B);
-
-   gf2x_scalarprod(num_digits_j+num_digits_nminusj, large_tmp,
-                   num_digits_j,                    p_00, p_10,
-                   num_digits_nminusj,                    q_10, q_11);
-   memcpy(t10,
-          large_tmp+(num_digits_j+num_digits_nminusj-nf),
-          (nf)*DIGIT_SIZE_B);
-
-   gf2x_scalarprod(num_digits_j+num_digits_nminusj, large_tmp,
-                   num_digits_j,                    p_01, p_11,
-                   num_digits_nminusj,                    q_10, q_11);
-   memcpy(t11,
-          large_tmp+(num_digits_j+num_digits_nminusj-nf),
-          (nf)*DIGIT_SIZE_B);
-   return delta;
-}
-
-#define MATRIX_ELEM_DIGITS ((2 * P - 1)/DIGIT_SIZE_b+1)// NUM_DIGITS_GF2X_ELEMENT+2
+#define MATRIX_ELEM_DIGITS (((2 * P - 1)/DIGIT_SIZE_b+1)/2)+4// NUM_DIGITS_GF2X_ELEMENT+2
 int inverse_DJB(DIGIT out[], const DIGIT in[], float x)
 {
 #if NUM_DIGITS_GF2X_MODULUS == NUM_DIGITS_GF2X_ELEMENT
@@ -1127,11 +967,207 @@ int inverse_DJB(DIGIT out[], const DIGIT in[], float x)
 #endif
     return 0;
 }
+/****************************************************************************/
+#if (defined HIGH_PERFORMANCE_X86_64)
+static
+void left_bit_shift(const int length, DIGIT in[])
+{
+   int j;
+   __m256i a,b;
+
+   for(j = 0; j < (length-1)/4; j++){
+
+     a = _mm256_lddqu_si256((__m256i *) &in[0] + j);//load from in[j] to in[j+3]
+     b = _mm256_lddqu_si256((__m256i *) &in[1] + j);  //load from in[j+1] to in[j+4]
+
+     a = _mm256_slli_epi64(a, 1);
+     b = _mm256_srli_epi64(b, (DIGIT_SIZE_b-1));
+
+     _mm256_storeu_si256((__m256i *) &in[0] + j, _mm256_or_si256(a,b));
+   }
+
+    for(j = j*4; j < length-1; j++) {
+     in[j] <<= 1;                    /* logical shift does not need clearing */
+     in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   }
+
+   in[length-1] <<= 1; //last element shift
+} // end left_bit_shift
+#elif (defined HIGH_COMPATIBILITY_X86_64)
+static
+void left_bit_shift(const int length, DIGIT in[])
+{
+   int j;
+   __m128i a,b,c,d,e,f;
+
+
+   for(j = 0; j < (length-1)/(UNR*2); j++){
+
+     a = _mm_lddqu_si128( (__m128i *)&in[0] + UNR*j );//load in[j] and in[j+1]
+     b = _mm_lddqu_si128( (__m128i *)&in[1] + UNR*j );  //load in[j+1] and in[j+2]
+     c = _mm_lddqu_si128( (__m128i *)&in[2] + UNR*j );//load in[j+2] and in[j+3]
+     d = _mm_lddqu_si128( (__m128i *)&in[3] + UNR*j );  //load in[j+3] and in [j+4]
+     e = _mm_lddqu_si128( (__m128i *)&in[4] + UNR*j );//load in[j+4] and in[j+5]
+     f = _mm_lddqu_si128( (__m128i *)&in[5] + UNR*j );  //load in[j+5] and in [j+6]
+
+
+     a = _mm_slli_epi64(a, 1);
+     b = _mm_srli_epi64(b, (DIGIT_SIZE_b-1));
+     c = _mm_slli_epi64(c, 1);
+     d = _mm_srli_epi64(d, (DIGIT_SIZE_b-1));
+     e = _mm_slli_epi64(e, 1);
+     f = _mm_srli_epi64(f, (DIGIT_SIZE_b-1));
+
+
+     _mm_storeu_si128(((__m128i *)&in[0] + UNR*j), _mm_or_si128(a, b));
+     _mm_storeu_si128(((__m128i *)&in[2] + UNR*j), _mm_or_si128(c, d));
+     _mm_storeu_si128(((__m128i *)&in[4] + UNR*j), _mm_or_si128(e, f));
+
+
+   }
+
+    for(j = j*(UNR*2); j < length-1; j++) {
+     in[j] <<= 1;                    /* logical shift does not need clearing */
+     in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   }
+
+   in[length-1] <<= 1; //last element shift
+} // end left_bit_shift
+#else
+static
+void left_bit_shift(const int length, DIGIT in[])
+{
+
+   int j;
+   for (j = 0; j < length-1; j++) {
+      in[j] <<= 1;                    /* logical shift does not need clearing */
+      in[j] |= in[j+1] >> (DIGIT_SIZE_b-1);
+   }
+   in[j] <<= 1;
+} // end left_bit_shift
+#endif
+void rotate_bit_left(DIGIT in[])   /*  equivalent to x * in(x) mod x^P+1 */
+{
+
+   DIGIT mask,rotated_bit;
+
+   if (NUM_DIGITS_GF2X_MODULUS == NUM_DIGITS_GF2X_ELEMENT) {
+
+      int msb_offset_in_digit = MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS-1;
+      mask = ((DIGIT)0x1) << msb_offset_in_digit;
+      rotated_bit = !!(in[0] & mask);
+      in[0] &= ~mask;                     /* clear shifted bit */
+      left_bit_shift(NUM_DIGITS_GF2X_ELEMENT, in);
+   } else {
+      /* NUM_DIGITS_GF2X_MODULUS == 1 + NUM_DIGITS_GF2X_ELEMENT and
+              * MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS == 0
+              */
+      mask =  ((DIGIT)0x1) << (DIGIT_SIZE_b-1);
+      rotated_bit = !!(in[0] & mask);
+      in[0] &= ~mask;                     /* clear shifted bit */
+      left_bit_shift(NUM_DIGITS_GF2X_ELEMENT, in);
+
+   }
+   in[NUM_DIGITS_GF2X_ELEMENT-1] |= rotated_bit;
+} // end rotate_bit_left
+
+
+/*----------------------------------------------------------------------------*/
+
+void rotate_bit_right(DIGIT in[])   /*  x^{-1} * in(x) mod x^P+1 */
+{
+
+   DIGIT rotated_bit = in[NUM_DIGITS_GF2X_ELEMENT-1] & ((DIGIT)0x1);
+   right_bit_shift(NUM_DIGITS_GF2X_ELEMENT, in);
+
+   if (NUM_DIGITS_GF2X_MODULUS == NUM_DIGITS_GF2X_ELEMENT) {
+      int msb_offset_in_digit = MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS-1;
+      rotated_bit = rotated_bit << msb_offset_in_digit;
+   } else {
+      /* NUM_DIGITS_GF2X_MODULUS == 1 + NUM_DIGITS_GF2X_ELEMENT and
+              * MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS == 0
+              */
+      rotated_bit = rotated_bit << (DIGIT_SIZE_b-1);
+   }
+   in[0] |= rotated_bit;
+} // end rotate_bit_right
+
+/*----------------------------------------------------------------------------*/
+
+static
+void gf2x_swap(const int length,
+               DIGIT f[],
+               DIGIT s[])
+{
+   DIGIT t;
+   for (int i = length-1; i >= 0; i--) {
+      t = f[i];
+      f[i] = s[i];
+      s[i] = t;
+   }
+}  // end gf2x_swap
+
+
+int inverseBCH(DIGIT out[], const DIGIT in[])     /* in^{-1} mod x^P-1 */
+{
+   int i;
+   long int delta = 0;
+   alignas(32) DIGIT u[NUM_DIGITS_GF2X_ELEMENT] = {0},
+         v[NUM_DIGITS_GF2X_ELEMENT] = {0},
+                                      s[NUM_DIGITS_GF2X_MODULUS] = {0},
+                                            f[NUM_DIGITS_GF2X_MODULUS] = {0};
+
+   DIGIT mask;
+   u[NUM_DIGITS_GF2X_ELEMENT-1] = 0x1;
+   v[NUM_DIGITS_GF2X_ELEMENT-1] = 0x0;
+
+   s[NUM_DIGITS_GF2X_MODULUS-1] = 0x1;
+   if (MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS == 0)
+      mask = 0x1;
+   else
+      mask = (((DIGIT)0x1) << MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS);
+   s[0] |= mask;
+
+   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i>=0 && in[i] == 0; i--);
+   if (i < 0) return 0;
+
+   if (NUM_DIGITS_GF2X_MODULUS == 1 + NUM_DIGITS_GF2X_ELEMENT)
+      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 1 ; i--) f[i] = in[i-1];
+   else  /* they are equal */
+      for (i = NUM_DIGITS_GF2X_MODULUS-1; i >= 0 ; i--) f[i] = in[i];
+
+   for (i = 1; i <= 2*P; i++) {
+      if ( (f[0] & mask) == 0 ) {
+         left_bit_shift(NUM_DIGITS_GF2X_MODULUS, f);
+         rotate_bit_left(u);
+         delta += 1;
+      } else {
+         if ( (s[0] & mask) != 0) {
+            gf2x_add(NUM_DIGITS_GF2X_MODULUS, s,
+                     NUM_DIGITS_GF2X_MODULUS, s,
+                     NUM_DIGITS_GF2X_MODULUS, f);
+            gf2x_mod_add(v, v, u);
+         }
+         left_bit_shift(NUM_DIGITS_GF2X_MODULUS, s);
+         if ( delta == 0 ) {
+            gf2x_swap(NUM_DIGITS_GF2X_MODULUS, f, s);
+            gf2x_swap(NUM_DIGITS_GF2X_ELEMENT, u, v);
+            rotate_bit_left(u);
+            delta = 1;
+         } else {
+            rotate_bit_right(u);
+            delta = delta - 1;
+         }
+      }
+   }
+   for (i = NUM_DIGITS_GF2X_ELEMENT-1; i >= 0 ; i--) out[i] = u[i];
+   return (delta == 0);
+} // end gf2x_mod_inverse
 
 /*************************************************************************/
 /******  Funzioni di supporto al benchmarking  ****/
 /*************************************************************************/
-#define NUM_TESTS 1
+#define NUM_TESTS 100
 
 #define RANDOM_FILL
 #if defined(RANDOM_FILL)
@@ -1196,6 +1232,8 @@ int main(int argc, char const *argv[])
     }
 
     uint64_t start, end;
+    FILE *ktt = fopen("ktt.txt","a");
+
 
     welford_t KTT_timing, DJB_timing, DJB_timing_mon;
     welford_init(&KTT_timing);
@@ -1205,24 +1243,24 @@ int main(int argc, char const *argv[])
 
     for(int i = 0; i < NUM_TESTS; i++) {
        start = x86_64_rtdsc();
-       gf2x_mod_inverse_KTT(outcheck,input);
+       inverseBCH(outcheck,input);
        end = x86_64_rtdsc();
        welford_update(&KTT_timing, ((long double) (end-start)));
     }
     welford_print(KTT_timing);
+    welford_print_filektt(KTT_timing, ktt);
     printf("\n");
 
     FILE *f = fopen("pval.txt","a");
-    //fseek(f,-1,SEEK_END);
+
     fprintf(f, "%i\n",P );
 
     float splitting_portion, splitting_step;
-    splitting_step = atof(argv[1]);
+    splitting_step = 0.05;
     splitting_portion = 0.25; //splitting_step;
 
-    while(! (splitting_portion > 0.5+splitting_step)) {
+    while(! (splitting_portion > 0.51)) {
         fprintf(f, "%.2f ", splitting_portion );
-        //fwrite(&splitting_portion, sizeof(splitting_portion),1, f);
 
        generate_invertible_element(input);
        welford_init(&DJB_timing);
@@ -1244,7 +1282,6 @@ int main(int argc, char const *argv[])
            is_result_one = 0;
        }
        if (!is_result_one) printf("check failed\n");
-       //splitting_portion += splitting_step;
 
     /*Monomial part*/
 

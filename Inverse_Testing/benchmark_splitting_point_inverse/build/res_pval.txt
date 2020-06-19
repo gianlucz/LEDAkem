@@ -1,0 +1,255 @@
+\begin{table}[ht] 
+\centering 
+\caption{7547 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 3.42 & 0.0008& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 2.14 & 0.0336& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 2.91 & 0.0040& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 4.17 & 0.0000& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 3.20 & 0.0016& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 0.74 & 0.4602& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{7853 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 4.45 & 0.0000& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.48 & 0.1405& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 3.85 & 0.0002& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 3.21 & 0.0015& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 3.84 & 0.0002& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.89 & 0.0043& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{14341 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.33 & 0.0208& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.60 & 0.1112& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 0.99 & 0.3234& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 2.46 & 0.0148& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 2.86 & 0.0047& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.05 & 0.0417& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{14939 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 3.27 & 0.0013& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 2.67 & 0.0082& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 2.62 & 0.0095& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 3.06 & 0.0025& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 2.12 & 0.0353& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.68 & 0.0080& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{16067 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.98 & 0.0032& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 2.09 & 0.0379& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 2.28 & 0.0237& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 2.62 & 0.0095& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 3.67 & 0.0003& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.73 & 0.0069& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{22691 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.18 & 0.0304& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.54 & 0.1252& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 3.17 & 0.0018& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 1.47 & 0.1431& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 1.71 & 0.0888& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.51 & 0.0129& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{25693 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.66 & 0.0085& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 2.69 & 0.0078& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 2.66 & 0.0085& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 2.20 & 0.0290& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 1.84 & 0.0673& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.60 & 0.0100& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{27437 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 3.01 & 0.0030& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 0.03 & 0.9761& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 1.08 & 0.2815& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 1.44 & 0.1514& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 1.75 & 0.0817& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 2.37 & 0.0187& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{35899 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 1.56 & 0.1204& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.65 & 0.1005& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 1.70 & 0.0907& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 2.37 & 0.0187& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & -0.98 & 0.3283& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 0.16 & 0.8730& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{36877 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.02 & 0.0447& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 2.12 & 0.0353& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 1.65 & 0.1005& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 2.24 & 0.0262& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 0.96 & 0.3382& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 1.36 & 0.1754& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{52147 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 0.07 & 0.9443& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.98 & 0.0491& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 1.84 & 0.0673& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 1.34 & 0.1818& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 2.05 & 0.0417& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 1.89 & 0.0602& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{57899 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.97 & 0.0033& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 0.42 & 0.6749& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 2.49 & 0.0136& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 1.27 & 0.2056& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 1.08 & 0.2815& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 0.83 & 0.4075& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{89051 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & -1.19 & 0.2355& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 1.12 & 0.2641& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 3.45 & 0.0007& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & 1.33 & 0.1850& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 2.09 & 0.0379& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 0.42 & 0.6749& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{96221 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 1.63 & 0.1047& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & 0.86 & 0.3908& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 4.83 & 0.0000& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{green} TEST OK (refuse $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & -0.04 & 0.9681& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & 0.78 & 0.4363& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 1.54 & 0.1252& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[ht] 
+\centering 
+\caption{152267 128 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.62 & 0.0095& \cellcolor{red} TEST FAIL (refuse $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.30 & -0.02 & 0.9841& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.35 & 0.52 & 0.6036& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.40 & -1.15 & 0.2515& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.45 & -1.50 & 0.1352& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+0.50 & 0.81 & 0.4189& \cellcolor{green} TEST OK (accept $H_0 = \mu_1 - \mu_2 = 0$)& \cellcolor{red} TEST FAIL (accept $H_0 != \mu_1 - \mu_2 = 0$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+

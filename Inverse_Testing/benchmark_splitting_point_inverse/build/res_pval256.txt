@@ -1,135 +1,256 @@
-\multicolumn{7}{|c|}{ 7547 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 2723414.94 & 182705.11 & 2655975.14 & 37888.08 & 3.61 & 0.0004
-0.30 & 2603446.73 & 173861.10 & 2536769.77 & 6841.85 & 3.83 & 0.0002
-0.35 & 2410359.53 & 202589.28 & 2333943.23 & 20231.10 & 3.75 & 0.0002
-0.40 & 2017835.22 & 141483.07 & 1962158.92 & 2793.80 & 3.93 & 0.0001
-0.45 & 1963680.44 & 148726.84 & 1908248.89 & 7051.64 & 3.72 & 0.0003
-0.50 & 1864598.68 & 145708.78 & 1817982.03 & 68705.40 & 2.89 & 0.0043
+case 1 = $H_0 = mu1 -mu2 =0$   
+\begin{table}[ht] 
+\centering 
+\caption{7547 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.85 & 0.0048& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 3.43 & 0.0007& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 2.69 & 0.0078& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & 3.62 & 0.0004& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 3.81 & 0.0002& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.84 & 0.0050& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 7853 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 2971946.03 & 179481.02 & 2911263.49 & 68997.80 & 3.16 & 0.0018
-0.30 & 2717462.84 & 144041.30 & 2673230.94 & 7779.72 & 3.07 & 0.0024
-0.35 & 2518617.45 & 115571.87 & 2469850.84 & 7861.11 & 4.21 & 0.0000
-0.40 & 2238811.55 & 101975.41 & 2199441.16 & 7497.29 & 3.85 & 0.0002
-0.45 & 1989460.08 & 93968.03 & 1953042.88 & 6861.03 & 3.87 & 0.0001
-0.50 & 1925492.38 & 112634.77 & 1885246.55 & 7737.98 & 3.56 & 0.0005
+\begin{table}[ht] 
+\centering 
+\caption{7853 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.25 & 0.0255& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 4.11 & 0.0001& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 3.54 & 0.0005& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & 2.90 & 0.0042& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 5.60 & 0.0000& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 3.25 & 0.0014& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 14341 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 7771651.88 & 159630.51 & 8952094.08 & 2057029.46 & -5.72 & 0.0000
-0.30 & 6874809.03 & 188120.44 & 6823906.19 & 26836.89 & 2.68 & 0.0080
-0.35 & 6170704.41 & 165242.61 & 6123731.24 & 16802.11 & 2.83 & 0.0051
-0.40 & 5502733.26 & 158206.26 & 5841337.62 & 963716.74 & -3.47 & 0.0006
-0.45 & 5171228.93 & 160539.98 & 5119480.00 & 28650.93 & 3.17 & 0.0018
-0.50 & 5209354.22 & 143690.44 & 5166359.47 & 6193.05 & 2.99 & 0.0031
+\begin{table}[ht] 
+\centering 
+\caption{14341 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 3.69 & 0.0003& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 4.08 & 0.0001& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 1.59 & 0.1134& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 4.07 & 0.0001& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 2.56 & 0.0112& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.95 & 0.0036& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 14939 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 8014211.42 & 173933.27 & 7973359.55 & 20508.50 & 2.33 & 0.0208
-0.30 & 7367400.95 & 145025.21 & 7341184.28 & 33981.51 & 1.76 & 0.0800
-0.35 & 6596335.44 & 132202.12 & 6563726.51 & 17360.92 & 2.45 & 0.0152
-0.40 & 5880073.27 & 149676.90 & 5850449.81 & 27238.17 & 1.95 & 0.0526
-0.45 & 5408610.77 & 128277.14 & 5383806.65 & 30071.25 & 1.88 & 0.0616
-0.50 & 5390620.20 & 137348.82 & 5358507.70 & 18330.06 & 2.32 & 0.0214
+\begin{table}[ht] 
+\centering 
+\caption{14939 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.97 & 0.0033& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 3.00 & 0.0030& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 2.81 & 0.0055& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & -1.69 & 0.0926& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 2.85 & 0.0048& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 3.31 & 0.0011& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 16067 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 9035693.92 & 530159.25 & 8896834.00 & 66935.40 & 2.60 & 0.0100
-0.30 & 8082566.93 & 158907.36 & 8046834.42 & 42912.53 & 2.17 & 0.0312
-0.35 & 7205976.47 & 168228.83 & 7162496.06 & 19956.83 & 2.57 & 0.0109
-0.40 & 6667152.19 & 182664.23 & 6631915.93 & 78681.40 & 1.77 & 0.0783
-0.45 & 5986748.14 & 163232.36 & 5965647.29 & 128905.75 & 1.01 & 0.3137
-0.50 & 5574489.40 & 147922.19 & 5545602.62 & 41614.39 & 1.88 & 0.0616
+\begin{table}[ht] 
+\centering 
+\caption{16067 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & -0.39 & 0.6970& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 2.40 & 0.0173& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 1.97 & 0.0502& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 2.53 & 0.0122& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 2.82 & 0.0053& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.83 & 0.0051& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 22691 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 15716280.44 & 230582.24 & 15690831.82 & 86814.10 & 1.03 & 0.3043
-0.30 & 13994149.55 & 196141.16 & 13960591.40 & 46698.45 & 1.66 & 0.0985
-0.35 & 12798920.70 & 165816.39 & 12763154.77 & 43664.79 & 2.09 & 0.0379
-0.40 & 10845169.66 & 179689.34 & 10827246.98 & 52409.13 & 0.96 & 0.3382
-0.45 & 10305139.74 & 247876.22 & 10245940.73 & 50128.87 & 2.34 & 0.0203
-0.50 & 9607980.72 & 161368.70 & 9575396.77 & 37145.00 & 1.97 & 0.0502
+\begin{table}[ht] 
+\centering 
+\caption{22691 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 1.11 & 0.2683& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 3.12 & 0.0021& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & -1.80 & 0.0734& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 1.47 & 0.1431& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 2.95 & 0.0036& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.30 & 0.0225& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 25693 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 18922070.27 & 225919.20 & 18930262.52 & 240689.48 & -0.25 & 0.8028
-0.30 & 15804427.87 & 227703.92 & 15757083.42 & 25792.33 & 2.07 & 0.0398
-0.35 & 14392375.49 & 177320.15 & 14342502.97 & 51419.34 & 2.70 & 0.0075
-0.40 & 13202339.36 & 499798.30 & 13083665.23 & 33098.83 & 2.37 & 0.0187
-0.45 & 12152147.59 & 175747.87 & 12128444.03 & 32778.10 & 1.33 & 0.1850
-0.50 & 11415445.15 & 182935.09 & 11378327.64 & 46694.11 & 1.97 & 0.0502
+\begin{table}[ht] 
+\centering 
+\caption{25693 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 2.87 & 0.0046& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 0.85 & 0.3964& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.35 & 1.98 & 0.0491& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & 3.02 & 0.0029& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 2.38 & 0.0183& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 1.55 & 0.1227& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 27437 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 20774650.04 & 256644.03 & 20713278.08 & 120481.30 & 2.16 & 0.0320
-0.30 & 16983486.62 & 218448.89 & 17162423.00 & 819277.28 & -2.11 & 0.0361
-0.35 & 16118665.92 & 230908.68 & 16079063.36 & 56162.49 & 1.67 & 0.0965
-0.40 & 14786066.11 & 171745.72 & 14739372.92 & 61331.03 & 2.56 & 0.0112
-0.45 & 13697966.77 & 233021.55 & 13657654.01 & 55640.20 & 1.68 & 0.0945
-0.50 & 12856431.17 & 271497.53 & 12778470.53 & 41197.82 & 2.84 & 0.0050
+\begin{table}[ht] 
+\centering 
+\caption{27437 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 1.37 & 0.1722& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 2.09 & 0.0379& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 2.58 & 0.0106& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & 2.37 & 0.0187& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 2.75 & 0.0065& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.79 & 0.0058& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 35899 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 30631841.35 & 529044.73 & 30477594.32 & 92112.21 & 2.87 & 0.0046
-0.30 & 26425560.79 & 195419.77 & 26391726.78 & 85413.12 & 1.59 & 0.1134
-0.35 & 24724483.32 & 274488.02 & 24662749.51 & 75930.36 & 2.17 & 0.0312
-0.40 & 21898491.03 & 264002.16 & 21864714.86 & 164686.40 & 1.09 & 0.2770
-0.45 & 20384557.30 & 218174.01 & 20368978.09 & 87936.10 & 0.66 & 0.5100
-0.50 & 18748044.74 & 217315.00 & 18698847.83 & 60686.77 & 2.18 & 0.0304
+\begin{table}[ht] 
+\centering 
+\caption{35899 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 0.68 & 0.4973& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 1.90 & 0.0589& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.35 & 2.25 & 0.0255& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.40 & 1.33 & 0.1850& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 2.21 & 0.0283& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.24 & 0.0262& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 36877 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 32332035.64 & 377490.79 & 32338453.71 & 529264.88 & -0.10 & 0.9204
-0.30 & 26869076.65 & 474242.01 & 26801909.63 & 144560.87 & 1.35 & 0.1786
-0.35 & 25173275.09 & 418967.84 & 25501221.73 & 1372634.33 & -2.29 & 0.0231
-0.40 & 23026754.84 & 749677.67 & 22879101.21 & 295296.22 & 1.83 & 0.0688
-0.45 & 21340972.21 & 467525.40 & 21272892.53 & 144591.51 & 1.39 & 0.1661
-0.50 & 20317992.79 & 302526.53 & 20279753.29 & 138033.83 & 1.15 & 0.2515
+\begin{table}[ht] 
+\centering 
+\caption{36877 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 1.29 & 0.1986& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 1.54 & 0.1252& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.35 & 1.90 & 0.0589& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 1.11 & 0.2683& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 2.55 & 0.0115& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 2.30 & 0.0225& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 52147 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 56670432.04 & 357410.62 & 56696325.87 & 96104.22 & -0.70 & 0.4847
-0.30 & 47825477.28 & 406048.85 & 48813399.03 & 4860811.13 & -2.03 & 0.0437
-0.35 & 44822199.80 & 2564915.28 & 44424326.67 & 219323.10 & 1.55 & 0.1227
-0.40 & 39954266.76 & 477917.98 & 39877342.81 & 203941.99 & 1.48 & 0.1405
-0.45 & 37357158.77 & 272482.28 & 37287855.75 & 74290.03 & 2.45 & 0.0152
-0.50 & 32794746.20 & 231732.26 & 32779280.82 & 77778.31 & 0.63 & 0.5294
+\begin{table}[ht] 
+\centering 
+\caption{52147 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & -0.28 & 0.7798& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 2.24 & 0.0262& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 0.85 & 0.3964& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 2.40 & 0.0173& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.45 & 1.35 & 0.1786& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.50 & 1.72 & 0.0870& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 57899 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 68122571.29 & 2198417.04 & 67739098.63 & 296336.98 & 1.73 & 0.0852
-0.30 & 53741180.11 & 390710.63 & 53643533.89 & 89470.52 & 2.44 & 0.0156
-0.35 & 48391435.43 & 253984.97 & 48363955.22 & 280949.82 & 0.73 & 0.4663
-0.40 & 45992440.17 & 1699653.18 & 45628347.61 & 105823.49 & 2.14 & 0.0336
-0.45 & 42565637.53 & 259552.85 & 42557212.27 & 79933.99 & 0.31 & 0.7569
-0.50 & 42306296.23 & 1695987.33 & 42375106.62 & 1803781.12 & -0.28 & 0.7798
+\begin{table}[ht] 
+\centering 
+\caption{57899 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 0.51 & 0.6106& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 2.14 & 0.0336& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 1.53 & 0.1276& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 1.79 & 0.0750& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 2.93 & 0.0038& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.50 & 1.77 & 0.0783& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 89051 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 129873875.52 & 2792166.07 & 129904232.01 & 2752478.08 & -0.08 & 0.9363
-0.30 & 112874636.31 & 943169.59 & 112578580.25 & 157764.57 & 3.10 & 0.0022
-0.35 & 97584537.71 & 7031647.51 & 95462146.40 & 3396050.49 & 2.72 & 0.0071
-0.40 & 89030358.81 & 591004.69 & 89882542.75 & 4025334.01 & -2.09 & 0.0379
-0.45 & 82249246.83 & 690096.21 & 82377682.05 & 1589827.89 & -0.74 & 0.4602
-0.50 & 81097583.15 & 676709.94 & 81120266.53 & 693987.86 & -0.23 & 0.8183
+\begin{table}[ht] 
+\centering 
+\caption{89051 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & 0.79 & 0.4305& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & -0.63 & 0.5294& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.35 & 1.56 & 0.1204& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & -0.60 & 0.5492& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 1.59 & 0.1134& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.50 & 0.74 & 0.4602& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 96221 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 141245554.66 & 1667337.94 & 141098026.56 & 350412.17 & 0.87 & 0.3854
-0.30 & 127049483.99 & 383563.15 & 126975627.48 & 134373.27 & 1.82 & 0.0703
-0.35 & 108353007.73 & 439704.61 & 108213142.48 & 143525.10 & 3.02 & 0.0029
-0.40 & 98011490.94 & 268522.07 & 99482809.60 & 6642941.52 & -2.21 & 0.0283
-0.45 & 93249594.89 & 323305.80 & 93290985.95 & 130928.86 & -1.19 & 0.2355
-0.50 & 85575885.69 & 284326.18 & 85535312.19 & 161236.84 & 1.24 & 0.2164
+\begin{table}[ht] 
+\centering 
+\caption{96221 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & -0.21 & 0.8339& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.30 & 0.46 & 0.6460& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.35 & 1.41 & 0.1601& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & 1.95 & 0.0526& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & 1.12 & 0.2641& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.50 & 1.67 & 0.0965& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 
-\multicolumn{7}{|c|}{ 152267 }
-x & pol_avg & pol_var & mon_avg & mon_var & T & pval
-0.25 & 288504886.35 & 2343851.21 & 288572300.74 & 4056154.81 & -0.14 & 0.8888
-0.30 & 245494962.68 & 840862.76 & 247756275.84 & 12382895.33 & -1.82 & 0.0703
-0.35 & 223480640.30 & 4425907.97 & 223429478.13 & 5068349.76 & 0.08 & 0.9363
-0.40 & 201201524.46 & 3231796.39 & 200991558.25 & 571702.73 & 0.64 & 0.5229
-0.45 & 182956408.92 & 1075484.08 & 182939203.08 & 589384.16 & 0.14 & 0.8888
-0.50 & 166173101.83 & 931649.90 & 167392324.40 & 5281504.56 & -2.27 & 0.0243
+\begin{table}[ht] 
+\centering 
+\caption{152267 256 }
+\begin{tabular}[t]{cccll} 
+\toprule 
+\textbf{x} & \textbf{T} & \textbf{pval} & \textbf{test case1} & \textbf{test case2}\\ 
+\midrule 
+0.25 & -2.30 & 0.0225& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.30 & 11.54 & 0.0000& {\cellcolor[HTML]{FF0000}} TEST FAIL (refuse $H_0(case1)$)\\ 
+0.35 & 0.73 & 0.4663& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.40 & -1.01 & 0.3137& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.45 & -1.55 & 0.1227& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+0.50 & 1.32 & 0.1884& {\cellcolor[HTML]{33CC33}} TEST OK (accept $H_0(case1)$)\\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
 

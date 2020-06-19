@@ -15,7 +15,8 @@ set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -pedantic -Wuninitialized -march='san
 ##Asan active
 ##set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -Wuninitialized -march=native -g3 -l asan -fsanitize=address")
 
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -Wall -pedantic -Wuninitialized -march=native -g3")
+##Debug
+##set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -Wuninitialized -march='native' -g3")
 
 message("FLAGS" ${CMAKE_C_FLAGS})
 

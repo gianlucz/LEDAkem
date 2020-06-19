@@ -1,10 +1,8 @@
 /**
  *
- * <gf2x_arith_mod_xPplusOne.h>
+ * Optimized ISO-C11 Implementation of LEDAcrypt using GCC built-ins.
  *
- * @version 1.0 (September 2017)
- *
- * Reference ISO-C99 Implementation of LEDAkem cipher" using GCC built-ins.
+ * @version 3.0 (May 2020)
  *
  * In alphabetical order:
  *
@@ -34,14 +32,15 @@
 
 #include "gf2x_limbs.h"
 #include "qc_ldpc_parameters.h"
-
 #include "gf2x_arith.h"
 #include "rng.h"
-
+#include <string.h>
 /*----------------------------------------------------------------------------*/
 
 #define                NUM_BITS_GF2X_ELEMENT (P)
 #define              NUM_DIGITS_GF2X_ELEMENT ((P+DIGIT_SIZE_b-1)/DIGIT_SIZE_b)
+#define MSb_POSITION_IN_MSB_DIGIT_OF_ELEMENT ( (P % DIGIT_SIZE_b) ? (P % DIGIT_SIZE_b)-1 : DIGIT_SIZE_b-1 )
+
 #define                NUM_BITS_GF2X_MODULUS (P+1)
 #define              NUM_DIGITS_GF2X_MODULUS ((P+1+DIGIT_SIZE_b-1)/DIGIT_SIZE_b)
 #define MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS (P-DIGIT_SIZE_b*(NUM_DIGITS_GF2X_MODULUS-1))
@@ -90,20 +89,25 @@
 
 /*----------------------------------------------------------------------------*/
 
-
-
-/*----------------------------------------------------------------------------*/
-
-static inline void gf2x_copy(DIGIT dest[], const DIGIT in[])
-{
-   for (int i = NUM_DIGITS_GF2X_ELEMENT-1; i >= 0; i--)//vett.
-      dest[i] = in[i];
-} // end gf2x_copy
-
-/*---------------------------------------------------------------------------*/
-
+/* specialized for nin == 2 * NUM_DIGITS_GF2X_ELEMENT */
+static inline
 void gf2x_mod(DIGIT out[],
-              const int nin, const DIGIT in[]); /* out(x) = in(x) mod x^P+1  */
+              const int nin, const DIGIT in[])
+{
+   DIGIT aux[NUM_DIGITS_GF2X_ELEMENT+1];
+   memcpy(aux, in, (NUM_DIGITS_GF2X_ELEMENT+1)*DIGIT_SIZE_B);
+#if MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS != 0
+   right_bit_shift_n(NUM_DIGITS_GF2X_ELEMENT+1, aux,
+                     MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS);
+#endif
+   gf2x_add(NUM_DIGITS_GF2X_ELEMENT,out,
+            NUM_DIGITS_GF2X_ELEMENT,aux+1,
+            NUM_DIGITS_GF2X_ELEMENT,in+NUM_DIGITS_GF2X_ELEMENT);
+#if MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS != 0
+   out[0] &=  ((DIGIT)1 << MSb_POSITION_IN_MSB_DIGIT_OF_MODULUS) - 1 ;
+#endif
+
+} // end gf2x_mod
 
 /*---------------------------------------------------------------------------*/
 
@@ -120,41 +124,9 @@ static inline void gf2x_mod_add(DIGIT Res[], const DIGIT A[], const DIGIT B[])
 
 /*----------------------------------------------------------------------------*/
 
-/*
- * Optimized extended GCD algorithm to compute the multiplicative inverse of
- * a non-zero element in GF(2)[x] mod x^P+1, in polyn. representation.
- *
- * H. Brunner, A. Curiger, and M. Hofstetter. 1993.
- * On Computing Multiplicative Inverses in GF(2^m).
- * IEEE Trans. Comput. 42, 8 (August 1993), 1010-1015.
- * DOI=http://dx.doi.org/10.1109/12.238496
- *
- *
- * Henri Cohen, Gerhard Frey, Roberto Avanzi, Christophe Doche, Tanja Lange,
- * Kim Nguyen, and Frederik Vercauteren. 2012.
- * Handbook of Elliptic and Hyperelliptic Curve Cryptography,
- * Second Edition (2nd ed.). Chapman & Hall/CRC.
- * (Chapter 11 -- Algorithm 11.44 -- pag 223)
- *
- */
-int gf2x_mod_inverse(DIGIT out[], const DIGIT in[]);/* ret. 1 if inv. exists */
-
-/*---------------------------------------------------------------------------*/
-
 void gf2x_transpose_in_place(DIGIT
                              A[]); /* in place bit-transp. of a(x) % x^P+1  *
                                       * e.g.: a3 a2 a1 a0 --> a1 a2 a3 a0     */
-
-/*---------------------------------------------------------------------------*/
-
-static inline void gf2x_bitwise_and(DIGIT *const restrict OUT,
-                                    const DIGIT *const restrict A,
-                                    const DIGIT *const restrict B)
-{
-   for(int i = NUM_DIGITS_GF2X_ELEMENT - 1; i >= 0; i--) {
-      OUT[i] = A[i] & B[i];
-   }
-} // end gf2x_bitwise_and
 
 /*---------------------------------------------------------------------------*/
 
@@ -162,7 +134,7 @@ static inline void gf2x_bitwise_and(DIGIT *const restrict OUT,
 static inline int population_count(DIGIT upc[])
 {
    int ret = 0;
-   for(int i = NUM_DIGITS_GF2X_ELEMENT - 1; i >= 0; i--) {//vett?
+   for(int i = NUM_DIGITS_GF2X_ELEMENT - 1; i >= 0; i--) {
 #if defined(DIGIT_IS_ULLONG)
       ret += __builtin_popcountll((unsigned long long int) (upc[i]));
 #elif defined(DIGIT_IS_ULONG)
@@ -183,7 +155,6 @@ with this CPU word bitsize !!! "
 } // end population_count
 
 /*--------------------------------------------------------------------------*/
-
 /* returns the coefficient of the x^exponent term as the LSB of a digit */
 static inline
 DIGIT gf2x_get_coeff(const DIGIT poly[], const unsigned int exponent)
@@ -200,9 +171,7 @@ DIGIT gf2x_get_coeff(const DIGIT poly[], const unsigned int exponent)
 static inline
 void gf2x_set_coeff(DIGIT poly[], const unsigned int exponent, DIGIT value)
 {
-
    int straightIdx = (NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_b -1) - exponent;
-
    int digitIdx = straightIdx / DIGIT_SIZE_b;
 
    unsigned int inDigitIdx = straightIdx % DIGIT_SIZE_b;
@@ -213,110 +182,163 @@ void gf2x_set_coeff(DIGIT poly[], const unsigned int exponent, DIGIT value)
    poly[digitIdx] = poly[digitIdx] | (( value & ((DIGIT) 1)) <<
                                       (DIGIT_SIZE_b-1-inDigitIdx));
 }
-/*--------------------------------------------------------------------------*/
 
-/* toggles (flips) the coefficient of the x^exponent term as the LSB of a digit */
-static inline
-void gf2x_toggle_coeff(DIGIT poly[], const unsigned int exponent)
-{
-
-   int straightIdx = (NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_b -1) - exponent;
-   int digitIdx = straightIdx / DIGIT_SIZE_b;
-   unsigned int inDigitIdx = straightIdx % DIGIT_SIZE_b;
-
-   /* clear given coefficient */
-   DIGIT mask = ( ((DIGIT) 1) << (DIGIT_SIZE_b-1-inDigitIdx));
-   poly[digitIdx] = poly[digitIdx] ^ mask;
-}
 /*--------------------------------------------------------------------------*/
 
 void rand_circulant_sparse_block(POSITION_T *pos_ones,
                                  const int countOnes,
                                  AES_XOF_struct *seed_expander_ctx);
-/*--------------------------------------------------------------------------*/
-
-void rand_circulant_blocks_sequence(DIGIT sequence[N0*NUM_DIGITS_GF2X_ELEMENT],
-                                    const int countOnes,
-                                    AES_XOF_struct *seed_expander_ctx
-                                   );
 
 /*---------------------------------------------------------------------------*/
 
+void rand_error_pos(POSITION_T errorPos[NUM_ERRORS_T],
+                    AES_XOF_struct *seed_expander_ctx);
 
-void gf2x_mod_add_sparse(int sizeR,
-                         POSITION_T Res[],
-                         int sizeA,
-                         POSITION_T A[],
-                         int sizeB,
-                         POSITION_T B[]);
+/*---------------------------------------------------------------------------*/
+void rand_error_pos_shake(POSITION_T errorPos[NUM_ERRORS_T],
+                          xof_shake_t *state);
 
-/*----------------------------------------------------------------------------*/
 
-void gf2x_transpose_in_place_sparse(int sizeA, POSITION_T A[]);
-
-/*----------------------------------------------------------------------------*/
-
-void gf2x_mod_mul_sparse(int
-                         sizeR, /*number of ones in the result, max sizeA*sizeB */
-                         POSITION_T Res[],
-                         int sizeA, /*number of ones in A*/
-                         const POSITION_T A[],
-                         int sizeB, /*number of ones in B*/
-                         const POSITION_T B[]);
-/*----------------------------------------------------------------------------*/
-/* PRE: amount is lesser than a digit wide */
-void right_bit_shift_n(const int length, DIGIT in[], int amount);
-/*----------------------------------------------------------------------------*/
-/* PRE: amount is lesser than a digit wide */
-void left_bit_shift_n(const int length, DIGIT in[], int amount);
-/*----------------------------------------------------------------------------*/
-void left_bit_shift_wide_n(const int length, DIGIT in[], int amount);
 /*----------------------------------------------------------------------------*/
 void gf2x_mod_mul_dense_to_sparse(DIGIT Res[],
                                   const DIGIT dense[],
-                                  POSITION_T sparse[],
+                                  const POSITION_T sparse[],
                                   unsigned int nPos);
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+#if (defined CONSTANT_TIME)
 static inline
-int partition (POSITION_T arr[], int lo, int hi)
+void expand_error(DIGIT sequence[N0*NUM_DIGITS_GF2X_ELEMENT],
+                  POSITION_T errorPos[NUM_ERRORS_T])
 {
-   POSITION_T x = arr[hi];
-   POSITION_T tmp;
-   int i = (lo - 1);
-   for (int j = lo; j <= hi - 1; j++)  {
-      if (arr[j] <= x) {
-         i++;
-         tmp = arr[i];
-         arr[i] = arr[j];
-         arr[j] = tmp;
-      }
-   }
-   tmp = arr[i+1];
-   arr[i+1] = arr[hi];
-   arr[hi] = tmp;
+   POSITION_T poly_idx[NUM_ERRORS_T];
+   POSITION_T digit_pos[NUM_ERRORS_T];
+   DIGIT indigit_bitmask[NUM_ERRORS_T];
+   memset(sequence, 0x00, N0*NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_B);
 
-   return i+1;
-} // end partition
-/*----------------------------------------------------------------------------*/
-static inline
-void quicksort(POSITION_T Res[], unsigned int sizeR)
-{
-   /* sort the result */
-   int stack[sizeR];
-   int hi, lo, pivot, tos = -1;
-   stack[++tos] = 0;
-   stack[++tos] = sizeR-1;
-   while (tos >=0 ) {
-      hi = stack[tos--];
-      lo = stack[tos--];
-      pivot = partition(Res, lo, hi);
-      if ( (pivot-1) > lo) {
-         stack[++tos] = lo;
-         stack[++tos] = pivot-1;
-      }
-      if ( (pivot + 1) < hi) {
-         stack[++tos] = pivot+1;
-         stack[++tos] = hi;
+   for(int i = 0; i < NUM_ERRORS_T; i++) {
+      poly_idx[i] = (errorPos[i] / P);
+      int exponent = errorPos[i] % P;
+      int straightIdx = (NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_b -1) - exponent;
+      digit_pos[i] = straightIdx / DIGIT_SIZE_b;
+      indigit_bitmask[i] = (DIGIT)1 << (DIGIT_SIZE_b-1-(straightIdx % DIGIT_SIZE_b));
+   }
+
+   for(int poly_to_set_idx = 0; poly_to_set_idx < N0 ; poly_to_set_idx++) {
+      for(int digit_to_set_idx = 0; digit_to_set_idx < NUM_DIGITS_GF2X_ELEMENT;
+            digit_to_set_idx++) {
+         for(int i = 0; i < NUM_ERRORS_T; i++) {
+            DIGIT mask = (DIGIT) 0 - (DIGIT)  ( (digit_to_set_idx == digit_pos[i])
+                                                & /*prevents logical shortcut */
+                                                (poly_to_set_idx == poly_idx[i]) );
+            sequence[NUM_DIGITS_GF2X_ELEMENT*poly_to_set_idx+digit_to_set_idx] |= ((mask&
+                  (indigit_bitmask[i])) | (~mask&((DIGIT)0) ));
+         }
       }
    }
 }
+#else
+static inline
+void expand_error(DIGIT sequence[N0*NUM_DIGITS_GF2X_ELEMENT],
+                  POSITION_T errorPos[NUM_ERRORS_T])
+{
+   memset(sequence, 0x00, N0*NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_B);
+
+   for (int j = 0; j < NUM_ERRORS_T; j++) {
+      int polyIndex = (errorPos[j] / P);
+      int exponent = errorPos[j] % P;
+      gf2x_set_coeff( sequence + NUM_DIGITS_GF2X_ELEMENT*polyIndex, exponent,
+                      ( (DIGIT) 1));
+   }
+}
+#endif
+
+/*----------------------------------------------------------------------------*/
+
+static inline
+void gf2x_mod_sparsify_error_CT(const DIGIT dense[N0*NUM_DIGITS_GF2X_ELEMENT],
+                                POSITION_T positionsOut[],
+                                int num_exponents)
+{
+   POSITION_T pos_being_written_idx = 0;
+   for (int i = 0; i < N0 ; i++) {
+      for(int j = 0; j< NUM_DIGITS_GF2X_ELEMENT ; j++) {
+         for(int inDigitIdx = 0; inDigitIdx < DIGIT_SIZE_b; inDigitIdx++) {
+            POSITION_T exponent = P*(i)
+                                  + NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_b-j*DIGIT_SIZE_b
+                                  - (DIGIT_SIZE_b-inDigitIdx);
+            DIGIT extracted_bit = (dense[NUM_DIGITS_GF2X_ELEMENT*i+j] >> inDigitIdx) &1;
+            positionsOut[pos_being_written_idx] = exponent;
+            /* move forward only if the extracted bit is 1 */
+            pos_being_written_idx += extracted_bit;
+         }
+      }
+   }
+}
+
+
+/*----------------------------------------------------------------------------*/
+
+static inline
+void gf2x_mod_densify_CT(DIGIT dense[NUM_DIGITS_GF2X_ELEMENT],
+                         const POSITION_T exponent[],
+                         int num_exponents)
+{
+   POSITION_T digit_pos[num_exponents];
+   DIGIT indigit_bitmask[num_exponents];
+
+   for(int i = 0; i < num_exponents; i++) {
+      int straightIdx = (NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_b -1) - exponent[i];
+      digit_pos[i] = straightIdx / DIGIT_SIZE_b;
+      indigit_bitmask[i] = ((DIGIT)1 << (DIGIT_SIZE_b-1)) >>
+                           (straightIdx % DIGIT_SIZE_b);
+   }
+
+   for(int digit_to_set_idx=0; digit_to_set_idx < NUM_DIGITS_GF2X_ELEMENT;
+         digit_to_set_idx++) {
+      for(int i = 0; i < num_exponents; i++) {
+         /*Note: this automatically deals with invalid positions which are
+          * represented as position P */
+         DIGIT mask = (DIGIT) 0 - (DIGIT)(digit_to_set_idx == digit_pos[i]);
+         dense[digit_to_set_idx] |= ((mask&(indigit_bitmask[i])) | (~mask&((DIGIT)0) ));
+      }
+   }
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+
+static inline
+void gf2x_mod_densify_VT(DIGIT dense[NUM_DIGITS_GF2X_ELEMENT],
+                         const POSITION_T exponent[],
+                         int num_exponents)
+{
+   for(int j=0; j<num_exponents; j++) {
+      gf2x_set_coeff(dense, exponent[j], (DIGIT) 1);
+   }
+}
+
+/*----------------------------------------------------------------------------*/
+
+#if ((defined KEM) && !(defined HIGH_PERFORMANCE_X86_64))
+#define GF2X_DIGIT_MOD_INVERSE gf2x_mod_inverse_BY
+int gf2x_mod_inverse_BY(DIGIT out[], const DIGIT in[]);
+//int gf2x_mod_inverse_KTT(DIGIT out[], const DIGIT in[]);
+#else
+#define GF2X_DIGIT_MOD_INVERSE gf2x_mod_inverse_exp
+#include "inverse_exp.h"
+#endif
+
+/*----------------------------------------------------------------------------*/
+
+void gf2x_mod_mul_monom(DIGIT shifted[],
+                        POSITION_T shift_amt,
+                        const DIGIT to_shift[]);
+
+/*----------------------------------------------------------------------------*/
+
+void gf2x_mod_fmac(DIGIT result[],
+                   POSITION_T shift_amt,
+
+                   const DIGIT to_shift[]);
+/*----------------------------------------------------------------------------*/

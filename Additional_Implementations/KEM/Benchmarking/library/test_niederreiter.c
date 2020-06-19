@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>    // C99 sqrtl(...) for sample variance computation 
+#include <math.h>    // C99 sqrtl(...) for sample variance computation
 
 #define __USE_POSIX199309
 
@@ -244,6 +244,15 @@ void test_KEM_niederreiter_code(int ac, char *av[], long unsigned int NumTests)
              );
    else
       fprintf(stderr,"\nNo successful enc/dec match !!!");
+
+     fprintf(stderr, "\n"); //print the parameters and the time needed.
+     fprintf(stderr, "         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time\n");
+     fprintf(stderr, "TAB    : %5d%5s & %5d%5s & %5d%5s & & %9.3Lf (+,- %.3Lf) ms      & %9.3Lf (+,- %.3Lf) ms      &  %7.3Lf (+,- %.3Lf) ms  \n",
+       CATEGORY, " ", N0, " ", P, " ",
+       sm_keygen, sqrtl(sm2_keygen/(NumTests-1)),
+       sm_enc, sqrtl(sm2_enc/(NumTests-1)),
+       sm_cmp, sqrtl(sm2_cmp/(memcmpOk-1)) //ptx and decrypted ctx match
+      );
 
    publicKey_deletion_niederreiter(pk);
    free(pk);

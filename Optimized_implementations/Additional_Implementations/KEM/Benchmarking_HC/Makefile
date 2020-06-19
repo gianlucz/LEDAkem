@@ -11,7 +11,7 @@
 
   REFERENCE_IMPL_PATH = ../../../High_Compatibility/KEM
 
-  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -g3 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march=nocona -funroll-loops -O3 
+  CFLAGS = -DCPU_WORD_BITS=64 -std=c11 -g3 -Wall -pedantic -Wmaybe-uninitialized -Wuninitialized -march='sandybridge' -funroll-loops -O3 
   LDFLAGS = -lm
   INCLUDES = -I./include -I$(REFERENCE_IMPL_PATH)/include
   SRCDIR_MAIN_FILE = library

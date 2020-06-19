@@ -198,19 +198,31 @@ void right_bit_shift(const int length, DIGIT in[])
      in[j] >>= 1;
 }
 #elif (defined HIGH_COMPATIBILITY_X86_64)
+#define UNR 3
    int j;
-   __m128i a,b;
+   __m128i a,b,c,d,e,f;
 
-   for (j = length-1; j > 2 ; j=j-2) {
+   for (j = length-1; j > UNR*2 ; j=j-(UNR*2)) {
 
       a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j-1] and in[j]
       b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-2] and in[j-1]
+      c = _mm_lddqu_si128( (__m128i *)&in[j-3]);  //load in[j-3] and in[j-2]
+      d = _mm_lddqu_si128( (__m128i *)&in[j-4]);  //load in[j-4] and in[j-3]
+      e = _mm_lddqu_si128( (__m128i *)&in[j-5]);  //load in[j-5] and in[j-4]
+      f = _mm_lddqu_si128( (__m128i *)&in[j-6]);  //load in[j-5] and in[j-6]
 
       a = _mm_srli_epi64(a, 1);
       b = _mm_slli_epi64(b, (DIGIT_SIZE_b-1));
+      c = _mm_srli_epi64(c, 1);
+      d = _mm_slli_epi64(d, (DIGIT_SIZE_b-1));
+      e = _mm_srli_epi64(e, 1);
+      f = _mm_slli_epi64(f, (DIGIT_SIZE_b-1));
 
       _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
-    }
+      _mm_storeu_si128(((__m128i *)&in[j-3]), _mm_or_si128(c, d));
+      _mm_storeu_si128(((__m128i *)&in[j-5]), _mm_or_si128(e, f));
+
+   }
 
    for(; j > 0; j--){
      in[j] >>= 1;
@@ -296,27 +308,38 @@ void right_bit_shift_n(const int length, DIGIT in[], const int amount) {
      in[j] >>= amount;
 }
 #elif (defined HIGH_COMPATIBILITY_X86_64)
-int j;
-__m128i a,b;
+#define UNR 3
+   int j;
+   __m128i a,b,c,d,e,f;
 
-for (j = length-1; j > 2 ; j=j-2) {
+   for (j = length-1; j > UNR*2 ; j=j-(UNR*2)) {
 
-   a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j-1] and in[j]
-   b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-2] and in[j-1]
+      a = _mm_lddqu_si128( (__m128i *)&in[j-1]);  //load in[j-1] and in[j]
+      b = _mm_lddqu_si128( (__m128i *)&in[j-2]);  //load in[j-2] and in[j-1]
+      c = _mm_lddqu_si128( (__m128i *)&in[j-3]);  //load in[j-3] and in[j-2]
+      d = _mm_lddqu_si128( (__m128i *)&in[j-4]);  //load in[j-4] and in[j-3]
+      e = _mm_lddqu_si128( (__m128i *)&in[j-5]);  //load in[j-5] and in[j-4]
+      f = _mm_lddqu_si128( (__m128i *)&in[j-6]);  //load in[j-5] and in[j-6]
 
-   a = _mm_srli_epi64(a, amount);
-   b = _mm_slli_epi64(b, (DIGIT_SIZE_b-amount));
+      a = _mm_srli_epi64(a, amount);
+      b = _mm_slli_epi64(b, (DIGIT_SIZE_b-amount));
+      c = _mm_srli_epi64(c, amount);
+      d = _mm_slli_epi64(d, (DIGIT_SIZE_b-amount));
+      e = _mm_srli_epi64(e, amount);
+      f = _mm_slli_epi64(f, (DIGIT_SIZE_b-amount));
 
-   _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
+      _mm_storeu_si128(((__m128i *)&in[j-1]), _mm_or_si128(a, b));
+      _mm_storeu_si128(((__m128i *)&in[j-3]), _mm_or_si128(c, d));
+      _mm_storeu_si128(((__m128i *)&in[j-5]), _mm_or_si128(e, f));
 
-}
-DIGIT mask;
-mask = ((DIGIT)0x01 << amount) - 1;
-for(; j > 0; j--){
-  in[j] >>= amount;
-  in[j] |= (in[j-1] & mask) << (DIGIT_SIZE_b-amount);
-}
-in[j] >>= amount;
+   }
+   DIGIT mask;
+   mask = ((DIGIT)0x01 << amount) - 1;
+   for(; j > 0; j--){
+     in[j] >>= amount;
+     in[j] |= (in[j-1] & mask) << (DIGIT_SIZE_b-amount);
+   }
+   in[j] >>= amount;
 #else
    int j;
    DIGIT mask;

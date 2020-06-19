@@ -180,7 +180,7 @@ void gf2x_transpose_in_place(DIGIT A[])
 
 #ifdef HIGH_PERFORMANCE_X86_64
 
-void gf2x_digit_times_poly_mul_avx(const int nr, 
+void gf2x_digit_times_poly_mul_avx(const int nr,
                                    DIGIT Res[NUM_DIGITS_GF2X_ELEMENT+1],
                                    const int na, const DIGIT A[],
                                    const DIGIT B){
@@ -204,7 +204,7 @@ void gf2x_digit_times_poly_mul_avx(const int nr,
       lowToHighWord = _mm_slli_si128(prodRes1,8);
       accumRes = _mm_xor_si128(accumRes,lowToHighWord);
 
-      accumRes = (__m128i) _mm_shuffle_pd( (__m128d) accumRes, 
+      accumRes = (__m128i) _mm_shuffle_pd( (__m128d) accumRes,
                                           (__m128d) accumRes, 1);
       _mm_storeu_si128((__m128i *)(&Res[i]), accumRes);
 
@@ -246,10 +246,10 @@ void gf2x_digit_times_poly_mul(const int nr, DIGIT Res[NUM_DIGITS_GF2X_ELEMENT+1
 
 #define SIGNED_DIGIT int64_t
 static inline
-int divstepsx(int n, int t, 
-              int delta, 
+int divstepsx(int n, int t,
+              int delta,
               DIGIT f64, DIGIT g64,
-              DIGIT * p00, DIGIT * p01, 
+              DIGIT * p00, DIGIT * p01,
               DIGIT * p10, DIGIT * p11) {
 
     DIGIT u, v, q, r;
@@ -261,7 +261,7 @@ int divstepsx(int n, int t,
     q = 0;
     r = ((DIGIT) 1) << n;
     DIGIT tmp,tmp2;
-    
+
     while (n > 0) {
       SIGNED_DIGIT swap_mask = ((delta > 0) & ((g64 & 1) != 0));
       swap_mask = (swap_mask << (DIGIT_SIZE_b-1)) >> (DIGIT_SIZE_b-1);
@@ -270,12 +270,12 @@ int divstepsx(int n, int t,
       tmp2 = CTIME_IF(swap_mask,f64,g64);
       f64  = tmp;
       g64  = tmp2;
-      
+
       tmp  = CTIME_IF(swap_mask,q,u);
       tmp2 = CTIME_IF(swap_mask,u,q);
       u  = tmp;
       q  = tmp2;
-      
+
       tmp  = CTIME_IF(swap_mask,r,v);
       tmp2 = CTIME_IF(swap_mask,v,r);
       v  = tmp;
@@ -289,7 +289,7 @@ int divstepsx(int n, int t,
       q =   (f0 & q) ^ (g0 & u);
       r =   (f0 & r) ^ (g0 & v);
       g64 = (f0 & g64) ^ (g0 & f64);
-      
+
       g64 >>= 1;
       q >>= 1;
       r >>= 1;
@@ -330,19 +330,19 @@ void gf2x_mod_mul(DIGIT Res[], const DIGIT A[], const DIGIT B[])
 } // end gf2x_mod_mul
 
 /*----------------------------------------------------------------------------*/
-/* computes operand*x^shiftAmt + Res. assumes res is  
+/* computes operand*x^shiftAmt + Res. assumes res is
  * wide and operand is NUM_DIGITS_GF2X_ELEMENT with blank slack bits */
 static inline
-void gf2x_fmac(DIGIT Res[], 
+void gf2x_fmac(DIGIT Res[],
                const DIGIT operand[],
                const unsigned int shiftAmt){
-    
+
 #if defined(HIGH_PERFORMANCE_X86_64)
    DIGIT shiftedOp[NUM_DIGITS_GF2X_ELEMENT*2] = {0};
    memcpy(shiftedOp+NUM_DIGITS_GF2X_ELEMENT,
-          operand, 
+          operand,
           NUM_DIGITS_GF2X_ELEMENT*DIGIT_SIZE_B);
-   left_bit_shift_wide_n(NUM_DIGITS_GF2X_ELEMENT*2, 
+   left_bit_shift_wide_n(NUM_DIGITS_GF2X_ELEMENT*2,
                          shiftedOp, shiftAmt);
    gf2x_add(NUM_DIGITS_GF2X_ELEMENT*2, Res,
             NUM_DIGITS_GF2X_ELEMENT*2, Res,
@@ -373,12 +373,12 @@ void gf2x_mod_mul_dense_to_sparse(DIGIT Res[],
 {
    DIGIT resDouble[2*NUM_DIGITS_GF2X_ELEMENT] = {0};
 
-   for (unsigned int i = 0; i < nPos; i++) { 
+   for (unsigned int i = 0; i < nPos; i++) {
        if (sparse[i] != INVALID_POS_VALUE) {
            gf2x_fmac(resDouble, dense ,sparse[i]);
        }
    }
-   
+
    gf2x_mod(Res, 2*NUM_DIGITS_GF2X_ELEMENT, resDouble);
 
 } // end gf2x_mod_mul
@@ -411,7 +411,7 @@ void gf2x_transpose_in_place_sparse(int sizeA, POSITION_T A[])
 
 /*----------------------------------------------------------------------------*/
 
-void gf2x_mod_mul_sparse(int sizeR, /*number of ones in the result, 
+void gf2x_mod_mul_sparse(int sizeR, /*number of ones in the result,
                                      * max sizeA*sizeB */
                          POSITION_T Res[],
                          int sizeA, /*number of ones in A*/

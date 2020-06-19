@@ -37,7 +37,7 @@ void welford_update(welford_t* state, long double sample){
 
 static inline
 void welford_print(const welford_t state){
-     printf("%.2Lf, %.2Lf",
+     printf(" %.2Lf, %.2Lf ",
               state.mean,
               sqrtl(state.M2/(long double)(state.count-1)));
 }
@@ -50,7 +50,18 @@ void welford_print_file(const welford_t state, FILE *f){
     long double var = sqrtl(state.M2/(long double)(state.count-1));
 
 //    fwrite(&avg, sizeof(avg),1,f);
-    fprintf(f, "%.2Lf %.2Lf ", avg,var);
+    fprintf(f, "%.2Lf %.2Lf", avg,var);
+//    fwrite(&var, sizeof(var),1,f);
+
+}
+void welford_print_filektt(const welford_t state, FILE *f){
+
+    //FILE *f = fopen("pval.txt","w");
+    long double avg = state.mean;
+    long double var = sqrtl(state.M2/(long double)(state.count-1));
+
+//    fwrite(&avg, sizeof(avg),1,f);
+    fprintf(f, "%.2Lf, %.2Lf \n", avg,var);
 //    fwrite(&var, sizeof(var),1,f);
 
 }

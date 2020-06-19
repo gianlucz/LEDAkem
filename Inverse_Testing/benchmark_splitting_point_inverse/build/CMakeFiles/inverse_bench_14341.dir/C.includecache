@@ -20,14 +20,6 @@ pmmintrin.h
 
 /home/gianluca/Desktop/benchmark_splitting_point_inverse/djbsort.h
 
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_arith.c
-gf2x_arith.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_arith.h
-string.h
--
-architecture_detect.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/architecture_detect.h
-
 /home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_arith.h
 gf2x_limbs.h
 /home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_limbs.h
@@ -62,39 +54,7 @@ limits.h
 stddef.h
 -
 
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/inverse_bench.c
-inttypes.h
--
-limits.h
--
-stddef.h
--
-stdio.h
--
-stdlib.h
--
-stdalign.h
--
-alloca.h
--
-gf2x_limbs.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_limbs.h
-gf2x_arith_mod_xPplusOne.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/gf2x_arith_mod_xPplusOne.h
-architecture_detect.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/architecture_detect.h
-timing_and_stats.h
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/timing_and_stats.h
-string.h
--
-assert.h
--
-
 /home/gianluca/Desktop/benchmark_splitting_point_inverse/rng.h
 stdio.h
--
-
-/home/gianluca/Desktop/benchmark_splitting_point_inverse/timing_and_stats.h
-math.h
 -
 

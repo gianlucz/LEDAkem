@@ -1,0 +1,405 @@
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     1                 |
+ |                      N0:......     2                 |
+ |                       P:...... 27779(b)              |
+ |               Rate(K/N):......     0.5               |
+ |                                                      |
+ | H circ. block weight DV:......    17                 |
+ | Q circ. block weight M0:......     4                 |
+ |                      M1:......     3                 |
+ |                                                      |
+ |      number of errors T:......   224                 |
+ |                                                      |
+ |        private key size:......    24(B) =  0.0(KiB)  |
+ |        public  key size:......  3480(B) =  3.0(KiB)  |
+ |   encapsulated key size:......  3480(B) =  3.3(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:         22.645 (+,- 0.689) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:          3.291 (+,- 0.014) millisec
+    Average decryption time:         22.717 (+,- 0.486) millisec ... with successful decoding
+
+    Average decryption time:         22.717 (+,- 0.486) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     1      &     2      & 27779      & &    22.645 (+,- 0.689) ms      &     3.291 (+,- 0.014) ms      &   22.717 (+,- 0.486) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     1                 |
+ |                      N0:......     3                 |
+ |                       P:...... 18701(b)              |
+ |               Rate(K/N):......     0.7               |
+ |                                                      |
+ | H circ. block weight DV:......    19                 |
+ | Q circ. block weight M0:......     3                 |
+ |                      M1:......     2                 |
+ |                      M2:......     2                 |
+ |                                                      |
+ |      number of errors T:......   141                 |
+ |                                                      |
+ |        private key size:......    24(B) =  0.0(KiB)  |
+ |        public  key size:......  4688(B) =  4.0(KiB)  |
+ |   encapsulated key size:......  2344(B) =  2.2(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:         10.851 (+,- 0.096) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:          3.082 (+,- 0.005) millisec
+    Average decryption time:         27.251 (+,- 1.550) millisec ... with successful decoding
+
+    Average decryption time:         27.251 (+,- 1.550) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     1      &     3      & 18701      & &    10.851 (+,- 0.096) ms      &     3.082 (+,- 0.005) ms      &   27.251 (+,- 1.550) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     1                 |
+ |                      N0:......     4                 |
+ |                       P:...... 17027(b)              |
+ |               Rate(K/N):......     0.8               |
+ |                                                      |
+ | H circ. block weight DV:......    21                 |
+ | Q circ. block weight M0:......     4                 |
+ |                      M1:......     1                 |
+ |                      M2:......     1                 |
+ |                      M3:......     1                 |
+ |                                                      |
+ |      number of errors T:......   112                 |
+ |                                                      |
+ |        private key size:......    24(B) =  0.0(KiB)  |
+ |        public  key size:......  6408(B) =  6.0(KiB)  |
+ |   encapsulated key size:......  2136(B) =  2.0(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:          9.312 (+,- 0.053) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:          3.900 (+,- 0.009) millisec
+    Average decryption time:         31.960 (+,- 2.388) millisec ... with successful decoding
+
+    Average decryption time:         31.960 (+,- 2.388) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     1      &     4      & 17027      & &     9.312 (+,- 0.053) ms      &     3.900 (+,- 0.009) ms      &   31.960 (+,- 2.388) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     3                 |
+ |                      N0:......     2                 |
+ |                       P:...... 57557(b)              |
+ |               Rate(K/N):......     0.5               |
+ |                                                      |
+ | H circ. block weight DV:......    17                 |
+ | Q circ. block weight M0:......     6                 |
+ |                      M1:......     5                 |
+ |                                                      |
+ |      number of errors T:......   349                 |
+ |                                                      |
+ |        private key size:......    32(B) =  0.0(KiB)  |
+ |        public  key size:......  7200(B) =  7.0(KiB)  |
+ |   encapsulated key size:......  7200(B) =  7.0(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:         96.462 (+,- 7.381) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         13.529 (+,- 0.015) millisec
+    Average decryption time:         68.744 (+,- 4.908) millisec ... with successful decoding
+
+    Average decryption time:         68.744 (+,- 4.908) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     3      &     2      & 57557      & &    96.462 (+,- 7.381) ms      &    13.529 (+,- 0.015) ms      &   68.744 (+,- 4.908) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     3                 |
+ |                      N0:......     3                 |
+ |                       P:...... 41507(b)              |
+ |               Rate(K/N):......     0.7               |
+ |                                                      |
+ | H circ. block weight DV:......    19                 |
+ | Q circ. block weight M0:......     3                 |
+ |                      M1:......     4                 |
+ |                      M2:......     4                 |
+ |                                                      |
+ |      number of errors T:......   220                 |
+ |                                                      |
+ |        private key size:......    32(B) =  0.0(KiB)  |
+ |        public  key size:...... 10384(B) = 10.0(KiB)  |
+ |   encapsulated key size:......  5192(B) =  5.0(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:         50.589 (+,- 0.102) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         14.175 (+,- 0.006) millisec
+    Average decryption time:         64.896 (+,- 2.420) millisec ... with successful decoding
+
+    Average decryption time:         64.896 (+,- 2.420) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     3      &     3      & 41507      & &    50.589 (+,- 0.102) ms      &    14.175 (+,- 0.006) ms      &   64.896 (+,- 2.420) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     3                 |
+ |                      N0:......     4                 |
+ |                       P:...... 35027(b)              |
+ |               Rate(K/N):......     0.8               |
+ |                                                      |
+ | H circ. block weight DV:......    17                 |
+ | Q circ. block weight M0:......     4                 |
+ |                      M1:......     3                 |
+ |                      M2:......     3                 |
+ |                      M3:......     3                 |
+ |                                                      |
+ |      number of errors T:......   175                 |
+ |                                                      |
+ |        private key size:......    32(B) =  0.0(KiB)  |
+ |        public  key size:...... 13152(B) = 12.0(KiB)  |
+ |   encapsulated key size:......  4384(B) =  4.2(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:         36.904 (+,- 0.090) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         15.029 (+,- 0.008) millisec
+    Average decryption time:         65.252 (+,- 2.318) millisec ... with successful decoding
+
+    Average decryption time:         65.252 (+,- 2.318) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     3      &     4      & 35027      & &    36.904 (+,- 0.090) ms      &    15.029 (+,- 0.008) ms      &   65.252 (+,- 2.318) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     5                 |
+ |                      N0:......     2                 |
+ |                       P:...... 99053(b)              |
+ |               Rate(K/N):......     0.5               |
+ |                                                      |
+ | H circ. block weight DV:......    19                 |
+ | Q circ. block weight M0:......     7                 |
+ |                      M1:......     6                 |
+ |                                                      |
+ |      number of errors T:......   474                 |
+ |                                                      |
+ |        private key size:......    40(B) =  0.0(KiB)  |
+ |        public  key size:...... 12384(B) = 12.0(KiB)  |
+ |   encapsulated key size:...... 12384(B) = 12.0(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:        347.181 (+,- 1.129) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         39.244 (+,- 0.934) millisec
+    Average decryption time:        134.588 (+,- 9.042) millisec ... with successful decoding
+
+    Average decryption time:        134.588 (+,- 9.042) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     5      &     2      & 99053      & &   347.181 (+,- 1.129) ms      &    39.244 (+,- 0.934) ms      &  134.588 (+,- 9.042) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     5                 |
+ |                      N0:......     3                 |
+ |                       P:...... 72019(b)              |
+ |               Rate(K/N):......     0.7               |
+ |                                                      |
+ | H circ. block weight DV:......    19                 |
+ | Q circ. block weight M0:......     7                 |
+ |                      M1:......     4                 |
+ |                      M2:......     4                 |
+ |                                                      |
+ |      number of errors T:......   301                 |
+ |                                                      |
+ |        private key size:......    40(B) =  0.0(KiB)  |
+ |        public  key size:...... 18016(B) = 17.0(KiB)  |
+ |   encapsulated key size:......  9008(B) =  8.7(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:        160.921 (+,- 0.614) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         41.735 (+,- 0.050) millisec
+    Average decryption time:        122.333 (+,- 2.754) millisec ... with successful decoding
+
+    Average decryption time:        122.333 (+,- 2.754) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     5      &     3      & 72019      & &   160.921 (+,- 0.614) ms      &    41.735 (+,- 0.050) ms      &  122.333 (+,- 2.754) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+
+
+ --------------------------------------------------------
+ | LEDAkem (QC-LDPC based key encapsulation mechanism)  |
+ --------------------------------------------------------
+ |                                                      |
+ |                CATEGORY:......     5                 |
+ |                      N0:......     4                 |
+ |                       P:...... 60509(b)              |
+ |               Rate(K/N):......     0.8               |
+ |                                                      |
+ | H circ. block weight DV:......    23                 |
+ | Q circ. block weight M0:......     4                 |
+ |                      M1:......     3                 |
+ |                      M2:......     3                 |
+ |                      M3:......     3                 |
+ |                                                      |
+ |      number of errors T:......   239                 |
+ |                                                      |
+ |        private key size:......    40(B) =  0.0(KiB)  |
+ |        public  key size:...... 22704(B) = 22.0(KiB)  |
+ |   encapsulated key size:......  7568(B) =  7.3(KiB)  |
+ |                                                      |
+ --------------------------------------------------------
+
+Performance tests.
+
+            Number of tests:         30
+Average key generation time:        107.603 (+,- 0.273) millisec
+Number of correct decodings:         30                   
+  ---  ---      decryptions:         30
+    Average encryption time:         44.559 (+,- 0.033) millisec
+    Average decryption time:        182.222 (+,- 4.753) millisec ... with successful decoding
+
+    Average decryption time:        182.222 (+,- 4.753) millisec ... with successful decoding, and ptx and decrypted ctx match
+
+         Category   |     N0     |  P  |  Average key generation time  |    Average encryption time    |  Average decryption time
+TAB    :     5      &     4      & 60509      & &   107.603 (+,- 0.273) ms      &    44.559 (+,- 0.033) ms      &  182.222 (+,- 4.753) ms  
+
+
+Testing NIST API.
+
+crypto_kem_keypair returned:          0
+    crypto_kem_enc returned:          0
+    crypto_kem_dec returned:          0
+            memcmp returned:          0 ... shared_secret and decapsulated_shared_secret match!
+

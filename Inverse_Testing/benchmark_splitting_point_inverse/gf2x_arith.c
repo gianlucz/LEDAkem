@@ -168,7 +168,9 @@ static inline void gf2x_mul_4_avx(uint64_t *a, const uint64_t *b, const uint64_t
 }
 
 // 5-word multiplication (strategy 5-1)
-static inline void gf2x_mul_5_avx(uint64_t *a, const uint64_t *b, const uint64_t *c) {
+static
+inline
+void gf2x_mul_5_avx(uint64_t *a, const uint64_t *b, const uint64_t *c) {
 register __m128i v1, v2, t1, t2,tmp;
    __m128i m[14], bc[5];
    bc[0] = _mm_set_epi64x(c[4], b[4]);
@@ -176,6 +178,7 @@ register __m128i v1, v2, t1, t2,tmp;
    bc[2] = _mm_set_epi64x(c[2], b[2]);
    bc[3] = _mm_set_epi64x(c[1], b[1]);
    bc[4] = _mm_set_epi64x(c[0], b[0]);
+
    LOAD_m128_FROM_u64(v1, b+3);
    LOAD_m128_FROM_u64(v2, c+3);
    m[1] = _mm_clmulepi64_si128(v1, v2, 0x11);
@@ -689,8 +692,10 @@ void gf2x_mul_comb(const int nr, DIGIT Res[],
 
    for (k = DIGIT_SIZE_b-1; k > 0; k--) {
       for (i = na-1; i >= 0; i--)
-         if ( A[i] & (((DIGIT)0x1) << k) )
-            for (j = nb-1; j >= 0; j--) Res[i+j+1] ^= B[j];
+         {
+            DIGIT mask = ((DIGIT)0)-!!(A[i]&(((DIGIT)0x1)<<k));
+            for (j = nb-1; j >= 0; j--) Res[i+j+1] ^= (B[j] & mask);
+         }
 
 
       u = Res[na+nb-1];
@@ -702,8 +707,10 @@ void gf2x_mul_comb(const int nr, DIGIT Res[],
       }
    }
    for (i = na-1; i >= 0; i--)
-      if ( A[i] & ((DIGIT)0x1) )
-         for (j = nb-1; j >= 0; j--) Res[i+j+1] ^= B[j];
+   {
+      DIGIT mask = ((DIGIT)0)-!!(A[i]&(((DIGIT)0x1)<<k));
+      for (j = nb-1; j >= 0; j--) Res[i+j+1] ^= (B[j] & mask);
+   }
 }
 #endif
 
@@ -794,10 +801,44 @@ void gf2x_mul_Kar(const int nr, DIGIT Res[],
 }
 
 /*----------------------------------------------------------------------------*/
-
+#if (defined HIGH_PERFORMANCE_X86_64)
 static inline void gf2x_exact_div_x_plus_one(const int na, DIGIT A[]) {
     DIGIT t = 0;
-    for (int i = na - 1; i >= 0; i--) {
+    int i;
+    __m256i vec_t = _mm256_set_epi64x(0,0,0,0), tmp;
+    for (i = na - 4; i >= 0; i=i-4) {
+//  translation of  t ^= A[i];
+        tmp = _mm256_lddqu_si256((__m256i*) (A+i));
+        vec_t = _mm256_xor_si256(tmp,vec_t);
+        for (int j = 1; j <= DIGIT_SIZE_b / 2; j = j * 2) {
+//   translation of t ^= t << (unsigned) j;
+        tmp = _mm256_slli_epi64(vec_t, j);
+            vec_t = _mm256_xor_si256(tmp,vec_t);
+        }
+
+        DIGIT hicarry = 0, locarry =0;
+        t = _mm256_extract_epi64 (vec_t, 3);
+        t >>= DIGIT_SIZE_b - 1;
+        locarry -= t;
+        t = _mm256_extract_epi64 (vec_t, 1);
+        t >>= DIGIT_SIZE_b - 1;
+        hicarry -= t;
+        tmp = _mm256_set_epi64x(0,locarry,0,hicarry);
+        vec_t = _mm256_xor_si256(tmp,vec_t);
+
+        t = _mm256_extract_epi64 (vec_t, 2);
+        t >>= DIGIT_SIZE_b - 1;
+        hicarry = (DIGIT)0 - t;
+        tmp = _mm256_set_epi64x(0,0,hicarry,hicarry);
+        vec_t = _mm256_xor_si256(tmp,vec_t);
+// translation of =   A[i] = t;
+        _mm256_storeu_si256( (__m256i *) (A+i) ,vec_t);
+        t = _mm256_extract_epi64 (vec_t, 0);
+        t >>= DIGIT_SIZE_b - 1;
+        vec_t = _mm256_set_epi64x(t,0,0,0);
+    }
+    i = i >= -3 ? i+3 : i;
+    for (; i >= 0; i--) {
 
         t ^= A[i];
 
@@ -808,6 +849,23 @@ static inline void gf2x_exact_div_x_plus_one(const int na, DIGIT A[]) {
         t >>= DIGIT_SIZE_b - 1;
     }
 } // end gf2x_exact_div_x_plus_one
+#else
+static inline void gf2x_exact_div_x_plus_one(const int na, DIGIT A[]) {
+    DIGIT t = 0;
+    for (int i = na - 1; i >= 0; i--) {
+
+        t ^= A[i];
+
+        for (int j = 1; j <= DIGIT_SIZE_b / 2; j = j * 2) {
+            t ^= t << (unsigned) j;
+        }
+
+        A[i] = t;
+        t >>= DIGIT_SIZE_b - 1;
+    }
+} // end gf2x_exact_div_x_plus_one
+#endif
+
 
 /*---------------------------------------------------------------------------*/
 /* Toom-Cook 3 algorithm as reported in

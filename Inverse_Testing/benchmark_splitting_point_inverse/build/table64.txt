@@ -1,0 +1,285 @@
+\%7547
+
+\begin{table}[ht] 
+\centering 
+\caption{7547 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 86727057.42 & 2314003.74 & 86300728.24 & 153100.21 \\ 
+0.30 & 72557152.33 & 2828479.18 & 72201290.14 & 326882.52 \\ 
+0.35 & 65668290.71 & 224099.11 & 65603868.79 & 107487.49 \\ 
+0.40 & 57346056.37 & 280244.62 & 57268175.99 & 228160.75 \\ 
+0.45 & 53116560.59 & 658859.71 & 53028241.57 & 90298.18 \\ 
+0.50 & 48988449.77 & 144198.44 & 48940402.70 & 77079.81 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%7853
+
+\begin{table}[ht] 
+\centering 
+\caption{7853 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 91980743.61 & 335106.42 & 91967239.66 & 179321.49 \\ 
+0.30 & 76844678.62 & 420206.99 & 76818860.97 & 184546.24 \\ 
+0.35 & 68171701.56 & 415838.11 & 68160482.84 & 179130.04 \\ 
+0.40 & 61008990.32 & 386361.65 & 61591770.53 & 4730560.02 \\ 
+0.45 & 56056329.37 & 149392.57 & 55995599.79 & 62678.11 \\ 
+0.50 & 52476898.34 & 230665.83 & 52469566.30 & 201438.58 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%14341
+
+\begin{table}[ht] 
+\centering 
+\caption{14341 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 243081153.17 & 354989.46 & 243076653.45 & 312980.22 \\ 
+0.30 & 207094431.63 & 534170.65 & 207500450.19 & 4114680.76 \\ 
+0.35 & 181513443.89 & 1484581.04 & 181216368.00 & 274900.34 \\ 
+0.40 & 158210251.32 & 219099.62 & 158227389.77 & 181704.48 \\ 
+0.45 & 144257080.32 & 587870.37 & 144163136.11 & 359287.48 \\ 
+0.50 & 135637102.09 & 2692156.10 & 135764143.20 & 2966184.87 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%14939
+
+\begin{table}[ht] 
+\centering 
+\caption{14939 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 243522495.77 & 332145.59 & 243612831.02 & 500838.38 \\ 
+0.30 & 208382765.02 & 4923360.87 & 208172997.50 & 3762917.04 \\ 
+0.35 & 183184215.77 & 3372874.28 & 182732824.32 & 162027.08 \\ 
+0.40 & 160954501.74 & 3855884.19 & 160380075.11 & 116727.67 \\ 
+0.45 & 145852727.95 & 218830.80 & 145884637.86 & 173417.83 \\ 
+0.50 & 136817329.35 & 178659.80 & 136726527.48 & 200808.76 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%16067
+
+\begin{table}[ht] 
+\centering 
+\caption{16067 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 274065556.16 & 4599716.86 & 273593153.70 & 3036445.67 \\ 
+0.30 & 231023013.71 & 493077.09 & 230829640.10 & 245198.11 \\ 
+0.35 & 202454011.63 & 3962134.90 & 202259265.02 & 1934750.64 \\ 
+0.40 & 183424308.55 & 3870789.57 & 182886091.29 & 1359114.01 \\ 
+0.45 & 162938345.89 & 671925.21 & 162914072.70 & 352205.41 \\ 
+0.50 & 153408143.78 & 601182.73 & 153393101.75 & 337366.20 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%22691
+
+\begin{table}[ht] 
+\centering 
+\caption{22691 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 464139350.24 & 848390.42 & 463810135.67 & 330234.78 \\ 
+0.30 & 386732908.58 & 409749.75 & 386862032.67 & 4002024.52 \\ 
+0.35 & 346900250.31 & 526322.18 & 346820214.66 & 302521.76 \\ 
+0.40 & 305328726.67 & 333378.59 & 305274422.51 & 380488.80 \\ 
+0.45 & 280639135.44 & 4836912.44 & 280057072.32 & 306555.37 \\ 
+0.50 & 261314315.98 & 342621.27 & 261349573.19 & 383830.30 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%25693
+
+\begin{table}[ht] 
+\centering 
+\caption{25693 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 558797468.01 & 7204325.49 & 558424800.05 & 6201967.39 \\ 
+0.30 & 468060178.46 & 3998870.47 & 468313677.50 & 6030887.46 \\ 
+0.35 & 411637112.46 & 9503316.63 & 409946013.77 & 5579729.64 \\ 
+0.40 & 372835679.78 & 11976690.94 & 370459264.51 & 5950189.88 \\ 
+0.45 & 338513332.25 & 6887067.50 & 337689963.99 & 1000519.51 \\ 
+0.50 & 319566610.98 & 9972642.28 & 318898452.99 & 9469703.44 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%27437
+
+\begin{table}[ht] 
+\centering 
+\caption{27437 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 610738974.57 & 558227.50 & 610832586.97 & 437779.78 \\ 
+0.30 & 518624188.27 & 4141009.88 & 518051160.86 & 935182.51 \\ 
+0.35 & 456559406.99 & 847145.04 & 456977647.12 & 5538361.21 \\ 
+0.40 & 411182076.16 & 3411347.06 & 411145617.26 & 4313335.99 \\ 
+0.45 & 370480231.64 & 4611650.69 & 370043164.52 & 3403539.43 \\ 
+0.50 & 347715640.01 & 4246789.24 & 347773707.20 & 4785593.51 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%35899
+
+\begin{table}[ht] 
+\centering 
+\caption{35899 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 912385790.56 & 5166754.49 & 913322141.01 & 6709753.54 \\ 
+0.30 & 772402061.54 & 7044963.47 & 771647730.76 & 633621.94 \\ 
+0.35 & 676138548.70 & 4265167.36 & 676013185.53 & 658123.06 \\ 
+0.40 & 603495365.00 & 686798.87 & 603760038.45 & 3591477.19 \\ 
+0.45 & 547319997.29 & 375593.78 & 547189706.48 & 641262.55 \\ 
+0.50 & 518092775.60 & 4831347.29 & 517752645.33 & 1313487.30 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%36877
+
+\begin{table}[ht] 
+\centering 
+\caption{36877 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 1005146895.62 & 1118527.81 & 1005689732.73 & 4406806.43 \\ 
+0.30 & 827096064.90 & 690008.33 & 828033101.78 & 4799904.45 \\ 
+0.35 & 739521915.04 & 8172949.88 & 736934813.66 & 7514325.13 \\ 
+0.40 & 651528484.33 & 1823453.77 & 652736593.92 & 7814721.26 \\ 
+0.45 & 598321459.58 & 4300933.87 & 596980908.38 & 738099.07 \\ 
+0.50 & 574252563.91 & 5727225.51 & 573640511.25 & 2566871.41 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%52147
+
+\begin{table}[ht] 
+\centering 
+\caption{52147 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 1636166468.35 & 6378292.18 & 1635962625.51 & 4345791.97 \\ 
+0.30 & 1359560703.43 & 3834652.14 & 1359768736.80 & 5044915.24 \\ 
+0.35 & 1193250778.72 & 5327195.20 & 1192899024.10 & 1116344.33 \\ 
+0.40 & 1070962737.30 & 5707502.23 & 1071431926.98 & 7403225.25 \\ 
+0.45 & 983587965.42 & 944627.41 & 983951978.53 & 5651204.74 \\ 
+0.50 & 898335183.38 & 4103210.18 & 898339952.58 & 335641.68 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%57899
+
+\begin{table}[ht] 
+\centering 
+\caption{57899 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 1916415649.39 & 9591029.53 & 1922045577.46 & 15410413.79 \\ 
+0.30 & 1609394662.59 & 7491285.95 & 1611529803.87 & 8676437.73 \\ 
+0.35 & 1396678119.87 & 4972215.24 & 1398137251.90 & 10657041.11 \\ 
+0.40 & 1262278608.22 & 5795416.88 & 1262617870.48 & 4324992.42 \\ 
+0.45 & 1150935426.34 & 2723886.68 & 1151953452.47 & 10530669.55 \\ 
+0.50 & 1083849150.23 & 6585677.21 & 1084189336.19 & 5291142.80 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%89051
+
+\begin{table}[ht] 
+\centering 
+\caption{89051 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 3583167300.05 & 10624103.72 & 3583490451.69 & 11395515.07 \\ 
+0.30 & 3066672189.77 & 14991657.94 & 3060865282.93 & 12537277.67 \\ 
+0.35 & 2623902304.08 & 7387289.08 & 2625336577.98 & 7926941.07 \\ 
+0.40 & 2370030584.58 & 8919843.17 & 2368928463.57 & 9112599.66 \\ 
+0.45 & 2150390367.68 & 7616571.16 & 2150530695.41 & 6768696.74 \\ 
+0.50 & 2017792506.31 & 9614790.53 & 2017089428.24 & 7562455.77 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%96221
+
+\begin{table}[ht] 
+\centering 
+\caption{96221 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 4007424600.45 & 15074061.75 & 4006998628.62 & 8357492.07 \\ 
+0.30 & 3388711297.73 & 10450006.39 & 3386858727.04 & 9663757.92 \\ 
+0.35 & 2964858743.23 & 6413425.00 & 2964512296.52 & 10244560.31 \\ 
+0.40 & 2648403941.16 & 9597866.28 & 2647279364.91 & 9108875.57 \\ 
+0.45 & 2418015686.24 & 4498882.66 & 2422387941.99 & 13721222.04 \\ 
+0.50 & 2214320719.67 & 5284478.32 & 2215495524.79 & 7003762.96 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
+\%152267
+
+\begin{table}[ht] 
+\centering 
+\caption{152267 64 }
+\begin{tabular}[t]{ccccc} 
+\toprule 
+\textbf{x} & \textbf{pol avg}(Clock cycle) & \textbf{pol var}(Clock cycle) & \textbf{mon avg}(Clock cycle) & \textbf{mon var}(Clock cycle) \\ 
+\midrule 
+0.25 & 8137229143.59 & 41873275.24 & 8127162020.53 & 21973438.04 \\ 
+0.30 & 6800043016.88 & 13022128.13 & 6800347601.24 & 13830611.96 \\ 
+0.35 & 5905437577.03 & 12339111.03 & 5910367452.55 & 17381751.08 \\ 
+0.40 & 5309944411.56 & 13690736.92 & 5307168965.67 & 10576920.04 \\ 
+0.45 & 4802398828.23 & 11202531.18 & 4799551134.66 & 9398751.49 \\ 
+0.50 & 4454051233.16 & 9375361.18 & 4457313305.34 & 11578366.39 \\ 
+\bottomrule 
+\end{tabular} 
+\end{table} 
+
